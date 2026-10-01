@@ -237,6 +237,82 @@ The client ID remains available through the established session/client context f
 
 ---
 
+## 🖥️ Application Screenshots
+
+The Angular administration UI provides a responsive **Client Admin** experience together with shared identity and MFA screens.
+
+### 👥 Client Admin
+
+<details>
+<summary><strong>Dashboard</strong></summary>
+
+![TSCloak Client Admin Dashboard](docs/screenshots/client-admin-dashboard.png)
+
+</details>
+
+<details>
+<summary><strong>Users</strong></summary>
+
+![TSCloak Client Admin Users](docs/screenshots/client-admin-users.png)
+
+</details>
+
+<details>
+<summary><strong>Client Settings</strong></summary>
+
+![TSCloak Client Admin Settings](docs/screenshots/client-admin-settings.png)
+
+</details>
+
+<details>
+<summary><strong>Federation</strong></summary>
+
+![TSCloak Client Admin Federation](docs/screenshots/client-admin-federation.png)
+
+</details>
+
+<details>
+<summary><strong>Profile</strong></summary>
+
+![TSCloak Client Admin Profile](docs/screenshots/client-admin-profile.png)
+
+</details>
+
+<details>
+<summary><strong>Security &amp; MFA — Enrollment</strong></summary>
+
+![TSCloak Client Admin Security and MFA](docs/screenshots/client-admin-security-mfa.png)
+
+</details>
+
+<details>
+<summary><strong>Security &amp; MFA — Recovery</strong></summary>
+
+![TSCloak Client Admin MFA Recovery](docs/screenshots/client-admin-security-mfa-recovery.png)
+
+</details>
+
+### 🔐 Shared Identity UI
+
+<details>
+<summary><strong>Regenerate Recovery Codes</strong></summary>
+
+![TSCloak Regenerate Recovery Codes](docs/screenshots/shared-regenerate-recovery-codes.png)
+
+</details>
+
+<details>
+<summary><strong>MFA Verification</strong></summary>
+
+![TSCloak MFA Verification](docs/screenshots/shared-mfa-verification.png)
+
+</details>
+
+> [!IMPORTANT]
+> The screenshots above are captured from the demo environment. Before publishing this README in a public repository, make sure any visible client identifiers, setup secrets, OTP seeds, recovery codes, email addresses, or other environment-specific values are demo-only or redacted.
+
+---
+
 ## 📁 Application structure
 
 ```text
