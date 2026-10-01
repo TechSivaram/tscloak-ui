@@ -1,5 +1,12 @@
 # GitHub Linguist configuration for TSCloak Angular UI
 
+# Angular application source
+*.ts linguist-detectable=true
+*.html linguist-detectable=true
+
+# Do not include SCSS in repository language statistics
+*.scss linguist-detectable=false
+
 # Legacy reference files
 legacy-federation.html linguist-vendored
 legacy-federation.js   linguist-vendored
