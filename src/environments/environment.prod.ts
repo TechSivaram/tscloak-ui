@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   idp: {
-    url: 'https://idp.example.com',
+    url: 'https://tscloak.onrender.com',
   },
 } as const;
