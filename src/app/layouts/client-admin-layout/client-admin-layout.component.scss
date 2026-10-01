@@ -9,7 +9,7 @@
   --green-deep: #0d5427;
   --mint: #e7f3e9;
   --gold: #eda84d;
-  --shadow: 0 14px 35px rgba(24, 62, 39, .08);
+  --shadow: 0 14px 35px rgba(24, 62, 39, 0.08);
   --sidebar: #0b6f08;
   --sidebar-text: #ffffff;
   --active: #ff9933;
@@ -31,7 +31,12 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--canvas);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 a {
@@ -75,7 +80,7 @@ button {
   border: 0;
   border-radius: 12px;
   background: var(--paper);
-  box-shadow: 0 12px 32px rgba(24, 43, 36, .10);
+  box-shadow: 0 12px 32px rgba(24, 43, 36, 0.1);
   text-align: center;
 }
 
@@ -91,7 +96,7 @@ button {
   color: #1f2937;
   font-size: 30px;
   line-height: 1.15;
-  letter-spacing: -.6px;
+  letter-spacing: -0.6px;
 }
 
 .login-card .portal-title {
@@ -121,7 +126,10 @@ button {
   font-weight: 700;
   cursor: pointer;
   box-shadow: none;
-  transition: background .15s ease, border-color .15s ease, transform .15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .login-card button:hover {
@@ -155,7 +163,15 @@ button {
   overflow: hidden;
   background: var(--sidebar);
   color: var(--sidebar-text);
-  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
 }
 
 .brand {
@@ -165,7 +181,7 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, .16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .brand-mark {
@@ -194,7 +210,7 @@ button {
 
 .brand-subtitle {
   margin-top: 2px;
-  color: rgba(255, 255, 255, .72);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 11px;
 }
 
@@ -217,18 +233,23 @@ button {
   color: var(--sidebar-text);
   font-size: 14px;
   font-weight: 400;
-  transition: background .15s ease, color .15s ease, transform .15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .sidebar nav .nav-item:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, .10);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar nav .nav-item.active {
   color: #ffffff;
   background: var(--active);
-  box-shadow: inset 4px 0 0 #ffffff, 0 5px 14px rgba(0, 0, 0, .10);
+  box-shadow:
+    inset 4px 0 0 #ffffff,
+    0 5px 14px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar nav .nav-item span {
@@ -248,7 +269,7 @@ button {
   margin-top: auto;
   padding: 15px;
   flex-shrink: 0;
-  border-top: 1px solid rgba(255, 255, 255, .16);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .signout {
@@ -257,22 +278,22 @@ button {
   min-height: 42px;
   margin: 0;
   padding: 0 12px;
-  border: 1px solid rgba(255, 255, 255, .28);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 9px;
-  background: rgba(255, 255, 255, .06);
-  color: rgba(255, 255, 255, .88);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
   text-align: left;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition:
-    background .15s ease,
-    border-color .15s ease;
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .signout:hover {
-  background: rgba(255, 255, 255, .14);
-  border-color: rgba(255, 255, 255, .48);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.48);
 }
 
 .main-area {
@@ -291,13 +312,13 @@ button {
   justify-content: space-between;
   gap: 14px;
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, .92);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .main-area > header h1 {
   margin: 4px 0 0;
   font-size: 24px;
-  letter-spacing: -.5px;
+  letter-spacing: -0.5px;
 }
 
 .menu-button {
@@ -315,7 +336,7 @@ button {
 
 .menu-button:hover,
 .menu-button:focus-visible {
-  border-color: rgba(19, 136, 8, .35);
+  border-color: rgba(19, 136, 8, 0.35);
   background: var(--mint);
 }
 
@@ -386,7 +407,7 @@ button {
   width: max-content;
   max-width: 300px;
   padding: 9px 11px;
-  border: 1px solid rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   background: #17351d;
   color: #ffffff;
@@ -398,8 +419,10 @@ button {
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, -3px);
-  transition: opacity .15s ease, transform .15s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
 }
 
 .header-avatar.role-tooltip:hover::after {
@@ -509,7 +532,7 @@ button {
 .hero h2 {
   margin: 6px 0 8px;
   font-size: 29px;
-  letter-spacing: -.8px;
+  letter-spacing: -0.8px;
 }
 
 .hero p {
@@ -531,11 +554,11 @@ button {
   font-size: 12px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(20, 123, 55, .14);
+  box-shadow: 0 4px 10px rgba(20, 123, 55, 0.14);
   transition:
-    background .15s ease,
-    box-shadow .15s ease,
-    transform .15s ease;
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
 }
 
 /* Stats */
@@ -554,13 +577,13 @@ button {
   background: var(--paper);
   box-shadow: var(--shadow);
   transition:
-    transform .15s ease,
-    box-shadow .15s ease;
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .stats a:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 38px rgba(24, 62, 39, .12);
+  box-shadow: 0 18px 38px rgba(24, 62, 39, 0.12);
 }
 
 .stats span,
@@ -615,8 +638,8 @@ button {
   font-weight: 800;
   cursor: pointer;
   transition:
-    background .15s ease,
-    border-color .15s ease;
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .refresh:hover {
@@ -655,7 +678,7 @@ th {
   color: var(--muted);
   font-size: 10px;
   text-align: left;
-  letter-spacing: .7px;
+  letter-spacing: 0.7px;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -711,7 +734,7 @@ form textarea {
 form input:focus,
 form textarea:focus,
 form select:focus {
-  outline: 2px solid rgba(20, 123, 55, .15);
+  outline: 2px solid rgba(20, 123, 55, 0.15);
   border-color: var(--green);
 }
 
@@ -739,9 +762,9 @@ form .actions {
   font-weight: 750;
   cursor: pointer;
   transition:
-    background .15s ease,
-    border-color .15s ease,
-    color .15s ease;
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .secondary:hover {
@@ -757,7 +780,7 @@ form .actions {
 .refresh:focus-visible,
 .signout:focus-visible,
 .login-card button:focus-visible {
-  outline: 3px solid rgba(237, 168, 77, .45);
+  outline: 3px solid rgba(237, 168, 77, 0.45);
   outline-offset: 2px;
 }
 
@@ -765,7 +788,7 @@ form .actions {
 .secondary:disabled,
 .refresh:disabled,
 .signout:disabled {
-  opacity: .55;
+  opacity: 0.55;
   cursor: wait;
   transform: none;
 }
@@ -844,7 +867,7 @@ form .actions {
   color: var(--muted);
   font-size: 10px;
   font-weight: 850;
-  letter-spacing: .7px;
+  letter-spacing: 0.7px;
   text-transform: uppercase;
 }
 
@@ -858,7 +881,6 @@ form .actions {
 /* Tablet / Mobile */
 
 @media (max-width: 760px) {
-
   html,
   body {
     height: auto;
@@ -888,7 +910,7 @@ form .actions {
     flex: 0 0 auto;
     overflow: hidden;
     transform: translateX(-100%);
-    transition: transform .2s ease;
+    transition: transform 0.2s ease;
   }
 
   .sidebar.open {
@@ -916,7 +938,7 @@ form .actions {
   .sidebar-footer {
     margin-top: auto;
     padding: 15px;
-    border-top: 1px solid rgba(255, 255, 255, .16);
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
   }
 
   .signout {
@@ -960,7 +982,7 @@ form .actions {
     height: 100%;
     padding: 0;
     border: 0;
-    background: rgba(15, 23, 42, .45);
+    background: rgba(15, 23, 42, 0.45);
   }
 
   .mobile-overlay.visible {
@@ -1044,7 +1066,7 @@ form .actions {
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--paper);
-    box-shadow: 0 5px 15px rgba(24, 62, 39, .06);
+    box-shadow: 0 5px 15px rgba(24, 62, 39, 0.06);
   }
 
   tbody tr:hover {
@@ -1066,28 +1088,28 @@ form .actions {
     color: var(--muted);
     font-size: 9px;
     font-weight: 850;
-    letter-spacing: .6px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
   }
 
   tbody td:nth-child(1)::before {
-    content: "Username";
+    content: 'Username';
   }
 
   tbody td:nth-child(2)::before {
-    content: "Email";
+    content: 'Email';
   }
 
   tbody td:nth-child(3)::before {
-    content: "Roles";
+    content: 'Roles';
   }
 
   tbody td:nth-child(4)::before {
-    content: "Status";
+    content: 'Status';
   }
 
   tbody td:nth-child(5)::before {
-    content: "Created";
+    content: 'Created';
   }
 
   tbody td:nth-child(6) {
@@ -1199,7 +1221,7 @@ form .actions {
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--paper);
-    box-shadow: 0 5px 15px rgba(24, 62, 39, .06);
+    box-shadow: 0 5px 15px rgba(24, 62, 39, 0.06);
   }
 
   .client-federation-page tbody td {
@@ -1220,7 +1242,7 @@ form .actions {
     color: var(--muted);
     font-size: 9px;
     font-weight: 850;
-    letter-spacing: .6px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
   }
 
@@ -1298,4 +1320,12 @@ form .actions {
     padding-left: 9px;
     font-size: 11px;
   }
+}
+
+.security-breadcrumb {
+  display: block;
+  color: #263b33;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 450;
 }

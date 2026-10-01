@@ -30,7 +30,7 @@ export const routes: Routes = [
     path: 'idp-admin',
     children: [
       { path: '', pathMatch: 'full', component: PortalLoginComponent, title: 'TSCloak Administration' },
-      { path: 'callback', component: OidcCallbackComponent, data: { portal: 'idp-admin' }, title: 'TSCloak - Signing in' },
+      { path: 'callback.html', component: OidcCallbackComponent, data: { portal: 'idp-admin' }, title: 'TSCloak - Signing in' },
       {
         path: '',
         component: AdminLayoutComponent,
@@ -54,7 +54,7 @@ export const routes: Routes = [
     path: 'idp-client-admin',
     children: [
       {
-        path: 'callback',
+        path: 'callback.html',
         component: OidcCallbackComponent,
         data: { portal: 'idp-client-admin' },
         title: 'TSCloak | Signing in',

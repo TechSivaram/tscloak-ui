@@ -1,1 +1,64 @@
-<section class="hero"><div><p class="eyebrow">Client administration</p><h2>Federation</h2><p>Choose which configured identity providers are available to this client.</p></div></section><section class="panel"><div class="panel-header"><div><p class="eyebrow">Identity providers</p><h3>Provider availability</h3></div><button class="text-button" (click)="load()">Refresh</button></div><p class="message">{{message()}}</p><div class="table-wrap"><table><thead><tr><th>Name</th><th>Type</th><th>Availability</th><th></th></tr></thead><tbody>@if(!providers().length){<tr><td colspan="4">No federation providers are configured.</td></tr>}@else{@for(p of providers();track p.id){<tr><td>{{p.name}}</td><td>{{p.type}}</td><td>{{p.availableGlobally?(p.enabled?'Enabled for this client':'Disabled for this client'):'Disabled globally'}}</td><td><button class="button secondary" [disabled]="!p.availableGlobally" (click)="toggle(p)">{{p.enabled?'Disable for client':'Enable for client'}}</button></td></tr>}}</tbody></table></div></section>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Your client workspace</p>
+    <h2>Federation providers</h2>
+    <p>Choose which centrally configured providers are available to users of this client.</p>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h3>Provider availability</h3>
+    <button class="text-button" type="button" (click)="load()">Refresh</button>
+  </div>
+
+  @if (message()) {
+    <p class="message">{{ message() }}</p>
+  }
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Type</th>
+          <th>Availability</th>
+          <th aria-label="Actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (!providers().length) {
+          <tr>
+            <td colspan="4" class="empty">No federation providers are configured.</td>
+          </tr>
+        } @else {
+          @for (p of providers(); track p.id) {
+            <tr>
+              <td>{{ p.name }}</td>
+              <td>{{ p.type }}</td>
+              <td>
+                {{
+                  p.availableGlobally
+                    ? p.enabled
+                      ? 'Enabled for this client'
+                      : 'Disabled for this client'
+                    : 'Disabled globally'
+                }}
+              </td>
+              <td class="action-cell">
+                <button
+                  class="button secondary"
+                  type="button"
+                  [disabled]="!p.availableGlobally"
+                  (click)="toggle(p)"
+                >
+                  {{ p.enabled ? 'Disable for client' : 'Enable for client' }}
+                </button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

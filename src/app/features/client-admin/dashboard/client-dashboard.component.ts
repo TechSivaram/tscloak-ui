@@ -13,19 +13,28 @@ export class ClientDashboardComponent {
   private readonly api = inject(PortalApiService);
 
   readonly userCount = signal('—');
+  readonly clientName = signal('Loading client...');
 
   constructor() {
     void this.loadUserCount();
   }
 
   private async loadUserCount(): Promise<void> {
-    const response = await this.api.request<unknown[]>('/api/users');
+    const [usersResponse, clientResponse] = await Promise.all([
+      this.api.request<unknown[]>('/api/users'),
+      this.api.request<{ name?: string }>('/api/client-admin/settings'),
+    ]);
 
-    if (response.ok && Array.isArray(response.data)) {
-      this.userCount.set(String(response.data.length));
-      return;
+    if (usersResponse.ok && Array.isArray(usersResponse.data)) {
+      this.userCount.set(String(usersResponse.data.length));
+    } else {
+      this.userCount.set('—');
     }
 
-    this.userCount.set('—');
+    if (clientResponse.ok && clientResponse.data?.name) {
+      this.clientName.set(clientResponse.data.name);
+    } else {
+      this.clientName.set('Client administration');
+    }
   }
 }

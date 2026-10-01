@@ -1,1 +1,99 @@
-<section class="hero"><div><p class="eyebrow">Client administration</p><h2>Users</h2><p>Manage users registered for this client.</p></div><button class="button primary" (click)="openCreate()">Create user</button></section><section class="panel"><div class="panel-header"><div><p class="eyebrow">Directory</p><h3>Registered users</h3></div><button class="text-button" (click)="load()">Refresh</button></div><p class="message">{{message()}}</p><div class="table-wrap"><table><thead><tr><th>Username</th><th>Email</th><th>Roles</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody>@if(!users().length){<tr><td colspan="6">No users found.</td></tr>}@else{@for(u of users();track u.id){<tr><td>{{u.username}}</td><td>{{u.email}}</td><td>{{u.roles?.join(', ')||'—'}}</td><td>{{u.enabled?'Enabled':'Disabled'}}</td><td>{{ u.createdAt | date:'shortDate' }}</td><td><button class="text-button" (click)="openEdit(u)">Edit</button></td></tr>}}</tbody></table></div></section>@if(create()||editing()){<section class="panel form-panel"><div class="panel-header"><div><p class="eyebrow">User management</p><h3>{{create()?'Create user':'Edit '+editing()?.username}}</h3></div><button class="text-button" (click)="close()">Cancel</button></div><form (ngSubmit)="save()">@if(create()){<label>Username<input name="username" [(ngModel)]="form.username" required minlength="3"></label>}@else{<label>Username<input [value]="editing()?.username" disabled></label>}<label>Email<input name="email" type="email" [(ngModel)]="form.email" required></label>@if(create()){<label>Password<input name="password" type="password" [(ngModel)]="form.password" minlength="8" required></label>}@else{<label>Status<select name="enabled" [(ngModel)]="form.enabled"><option [ngValue]="true">Enabled</option><option [ngValue]="false">Disabled</option></select></label>}<div class="actions"><button class="button secondary" type="button" (click)="close()">Cancel</button><button class="button primary">{{create()?'Create user':'Save changes'}}</button></div></form></section>}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Client directory</p>
+    <h2>Users</h2>
+    <p>Manage users assigned to your client.</p>
+  </div>
+  <button class="button primary hero-action" type="button" (click)="openCreate()">
+    Create user
+  </button>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h3>Registered users</h3>
+    <button class="outline-button" type="button" (click)="load()">Refresh</button>
+  </div>
+  <p class="message">{{ message() }}</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (!users().length) {
+          <tr>
+            <td colspan="6">No users found.</td>
+          </tr>
+        } @else {
+          @for (u of users(); track u.id) {
+            <tr>
+              <td>{{ u.username }}</td>
+              <td>{{ u.email }}</td>
+              <td>{{ u.roles?.join(', ') || '—' }}</td>
+              <td>{{ u.enabled ? 'Enabled' : 'Disabled' }}</td>
+              <td>{{ u.createdAt | date: 'shortDate' }}</td>
+              <td>
+                <button class="outline-button edit-button" type="button" (click)="openEdit(u)">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+@if (create() || editing()) {
+  <section class="panel form-panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">User management</p>
+        <h3>{{ create() ? 'Create user' : 'Edit ' + editing()?.username }}</h3>
+      </div>
+      <button class="text-button" type="button" (click)="close()">Cancel</button>
+    </div>
+    <form (ngSubmit)="save()">
+      @if (create()) {
+        <label
+          >Username<input name="username" [(ngModel)]="form.username" required minlength="3"
+        /></label>
+      } @else {
+        <label>Username<input [value]="editing()?.username" disabled /></label>
+      }
+      <label>Email<input name="email" type="email" [(ngModel)]="form.email" required /></label>
+      @if (create()) {
+        <label
+          >Password<input
+            name="password"
+            type="password"
+            [(ngModel)]="form.password"
+            minlength="8"
+            required
+        /></label>
+      } @else {
+        <label
+          >Status<select name="enabled" [(ngModel)]="form.enabled">
+            <option [ngValue]="true">Enabled</option>
+            <option [ngValue]="false">Disabled</option>
+          </select></label
+        >
+      }
+      <div class="actions">
+        <button class="button secondary" type="button" (click)="close()">Cancel</button>
+        <button class="button primary" type="submit">
+          {{ create() ? 'Create user' : 'Save changes' }}
+        </button>
+      </div>
+    </form>
+  </section>
+}

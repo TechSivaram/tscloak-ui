@@ -114,7 +114,7 @@ export class OidcService {
     }
 
     const redirectUri = config.redirectUri;
-    const expectedCallback = `${window.location.origin}/idp-client-admin/callback`;
+    const expectedCallback = `${window.location.origin}/idp-client-admin/callback.html`;
     if (redirectUri !== expectedCallback) {
       throw new Error(`Client Admin redirect URI is not configured for ${expectedCallback}.`);
     }
@@ -519,7 +519,11 @@ export class OidcService {
         : typeof claims['username'] === 'string'
           ? claims['username']
           : undefined,
-      displayName: typeof claims['name'] === 'string' ? claims['name'] : undefined,
+      displayName: typeof claims['displayName'] === 'string'
+        ? claims['displayName']
+        : typeof claims['name'] === 'string'
+          ? claims['name']
+          : undefined,
       email: typeof claims['email'] === 'string' ? claims['email'] : undefined,
       roles,
     };

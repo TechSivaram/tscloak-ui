@@ -69,7 +69,7 @@ export class AdminLayoutComponent implements OnInit {
   private async loadUser(): Promise<void> {
     try {
       const user = await this.oidc.currentUser();
-      const name = user?.displayName || user?.username || user?.email || 'Administrator';
+      const name = user?.displayName || user?.username || 'Administrator';
       const roles = user?.roles ?? [];
 
       this.displayName.set(name);

@@ -18,11 +18,11 @@ export class OidcCallbackComponent implements OnInit {
   private getPortal(): 'idp-admin' | 'idp-client-admin' | null {
     const pathname = window.location.pathname.replace(/\/+$/, '');
 
-    if (pathname === '/idp-client-admin/callback') {
+    if (pathname === '/idp-client-admin/callback.html') {
       return 'idp-client-admin';
     }
 
-    if (pathname === '/idp-admin/callback') {
+    if (pathname === '/idp-admin/callback.html') {
       return 'idp-admin';
     }
 

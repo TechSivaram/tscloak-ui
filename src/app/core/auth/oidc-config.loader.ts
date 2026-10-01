@@ -92,7 +92,16 @@ export class OidcConfigLoaderFactory {
     }
 
     if (segments[0] === 'idp-client-admin') {
-      const clientId = sessionStorage.getItem('tscloak_client_admin_client_id') || segments[1] || '';
+      // The clientId exists only on the login entry route:
+      // /idp-client-admin/:clientId. The OIDC callback is
+      // /idp-client-admin/callback.html and must never be interpreted
+      // as a clientId. During the callback, recover the original clientId
+      // from the authentication session established before redirecting
+      // to the IdP.
+      const storedClientId = sessionStorage.getItem('tscloak_client_admin_client_id');
+      const isCallback = segments[1] === 'callback.html';
+      const clientId = isCallback ? storedClientId || '' : storedClientId || segments[1] || '';
+
       if (clientId) {
         return { portal: 'idp-client-admin', clientId };
       }

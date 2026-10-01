@@ -5,6 +5,7 @@ export interface AuthUser {
   username?: string;
   displayName?: string;
   email?: string;
+  avatarUrl?: string;
   roles: string[];
   [key: string]: unknown;
 }

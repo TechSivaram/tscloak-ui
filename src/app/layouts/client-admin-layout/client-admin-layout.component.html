@@ -1,1 +1,98 @@
-<div class="app-shell client-shell" [class.sidebar-open]="sidebarOpen()"><aside class="sidebar" [class.open]="sidebarOpen()"><app-brand subtitle="Client Administration"/><nav class="navigation"><a class="nav-item" [routerLink]="['/idp-client-admin','dashboard']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeSidebar()"><span>⌂</span>Dashboard</a><a class="nav-item" [routerLink]="['/idp-client-admin','users']" routerLinkActive="active" (click)="closeSidebar()"><span>♙</span>Users</a><a class="nav-item" [routerLink]="['/idp-client-admin','settings']" routerLinkActive="active" (click)="closeSidebar()"><span>⚙</span>Client settings</a><a class="nav-item" [routerLink]="['/idp-client-admin','federation']" routerLinkActive="active" (click)="closeSidebar()"><span>⇄</span>Federation</a><a class="nav-item" [routerLink]="['/idp-client-admin','profile']" routerLinkActive="active" (click)="closeSidebar()"><span>◉</span>Profile</a></nav><div class="sidebar-footer"><button class="signout" type="button" (click)="logout()">Sign out</button></div></aside><div class="main-area"><header><button class="menu-button" type="button" (click)="toggleSidebar()" [attr.aria-expanded]="sidebarOpen()">☰</button><div><span class="eyebrow">Client administration</span><h1>{{pageTitle()}}</h1></div><div class="user-chip"><div class="header-avatar role-tooltip" [attr.data-role-tooltip]="fullRoles()" [attr.title]="fullRoles()" aria-label="User roles">{{initials()}}</div><span class="header-identity"><strong>{{displayName()}}</strong><small>{{roleSummary()}}</small></span><button class="header-profile-button" type="button" (click)="toggleMenu($event)">⌄</button>@if(menuOpen()){<div class="header-profile-menu open"><a [routerLink]="['/idp-client-admin','profile']">Profile</a><a [routerLink]="['/idp-client-admin','security']">Security &amp; MFA</a><button type="button" (click)="logout()">Sign out</button></div>}</div></header><main><router-outlet/></main></div>@if(sidebarOpen()){<button class="mobile-overlay" type="button" (click)="closeSidebar()" aria-label="Close navigation"></button>}</div>
+<div class="app-shell client-shell" [class.sidebar-open]="sidebarOpen()">
+  <aside class="sidebar" [class.open]="sidebarOpen()">
+    <app-brand subtitle="Client Administration" />
+    <nav class="navigation">
+      <a
+        class="nav-item"
+        [routerLink]="['/idp-client-admin', 'dashboard']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeSidebar()"
+        ><span>⌂</span>Dashboard</a
+      ><a
+        class="nav-item"
+        [routerLink]="['/idp-client-admin', 'users']"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        ><span>♙</span>Users</a
+      ><a
+        class="nav-item"
+        [routerLink]="['/idp-client-admin', 'settings']"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        ><span>⚙</span>Client settings</a
+      ><a
+        class="nav-item"
+        [routerLink]="['/idp-client-admin', 'federation']"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        ><span>⇄</span>Federation</a
+      ><a
+        class="nav-item"
+        [routerLink]="['/idp-client-admin', 'profile']"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        ><span>◉</span>Profile</a
+      >
+    </nav>
+    <div class="sidebar-footer">
+      <button class="signout" type="button" (click)="logout()">Sign out</button>
+    </div>
+  </aside>
+  <div class="main-area">
+    <header>
+      <button
+        class="menu-button"
+        type="button"
+        (click)="toggleSidebar()"
+        [attr.aria-expanded]="sidebarOpen()"
+      >
+        ☰
+      </button>
+      <div>
+        @if (showSecurityBreadcrumb()) {
+          <span class="security-breadcrumb">TSCloak / Client Administration</span>
+        } @else {
+          <span class="eyebrow">Client administration</span>
+        }
+        <h1>{{ pageTitle() }}</h1>
+      </div>
+      <div class="user-chip">
+        <div
+          class="header-avatar role-tooltip"
+          [attr.data-role-tooltip]="fullRoles()"
+          [attr.title]="fullRoles()"
+          aria-label="User roles"
+        >
+          <img
+            class="header-avatar-image"
+            [src]="avatarUrl()"
+            alt=""
+            [hidden]="!avatarUrl()"
+            (error)="avatarUrl.set(null)"
+          /><span class="header-avatar-fallback" [hidden]="!!avatarUrl()">{{ initials() }}</span>
+        </div>
+        <span class="header-identity"
+          ><strong>{{ displayName() }}</strong
+          ><small>{{ roleSummary() }}</small></span
+        ><button class="header-profile-button" type="button" (click)="toggleMenu($event)">⌄</button>
+        @if (menuOpen()) {
+          <div class="header-profile-menu open">
+            <a [routerLink]="['/idp-client-admin', 'profile']">Profile</a
+            ><a [routerLink]="['/idp-client-admin', 'security']">Security &amp; MFA</a
+            ><button type="button" (click)="logout()">Sign out</button>
+          </div>
+        }
+      </div>
+    </header>
+    <main><router-outlet /></main>
+  </div>
+  @if (sidebarOpen()) {
+    <button
+      class="mobile-overlay"
+      type="button"
+      (click)="closeSidebar()"
+      aria-label="Close navigation"
+    ></button>
+  }
+</div>
