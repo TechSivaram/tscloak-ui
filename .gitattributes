@@ -1,0 +1,24 @@
+# ============================================================
+# TSCloak Angular UI - GitHub Linguist configuration
+# ============================================================
+
+# ------------------------------------------------------------
+# Angular application source
+# ------------------------------------------------------------
+# Keep TypeScript, HTML and SCSS visible to GitHub Linguist.
+*.ts   linguist-detectable=true
+*.html linguist-detectable=true
+*.scss linguist-detectable=true
+
+# ------------------------------------------------------------
+# Legacy reference files
+# ------------------------------------------------------------
+legacy-federation.html linguist-vendored
+legacy-federation.css  linguist-vendored
+
+# ------------------------------------------------------------
+# Generated/build output
+# ------------------------------------------------------------
+dist/**     linguist-generated
+coverage/** linguist-generated
+.angular/** linguist-generated
