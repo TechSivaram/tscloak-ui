@@ -321,6 +321,12 @@ The screenshots below cover the TSCloak Angular administration experience, share
 
 </details>
 
+### Responsive UI
+
+![TSCloak authentication screen 20](docs/screenshots/responsive.png)
+
+</details>
+
 > [!IMPORTANT]
 > These screenshots were captured from the TSCloak demo/development environment. Before publishing them publicly, verify that visible client IDs, email addresses, setup keys, OTP values, recovery codes, tokens, or other environment-specific values are demo-only or redacted.
 
