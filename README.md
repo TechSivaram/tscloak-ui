@@ -323,6 +323,9 @@ The screenshots below cover the TSCloak Angular administration experience, share
 
 ### Responsive UI
 
+<details>
+<summary><strong>Responsive UI for mobiles</strong></summary>
+
 ![TSCloak authentication screen 20](docs/screenshots/responsive.png)
 
 </details>
