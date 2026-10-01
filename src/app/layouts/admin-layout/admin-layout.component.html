@@ -1,0 +1,93 @@
+<div class="app-shell" [class.sidebar-open]="sidebarOpen()">
+  <aside class="sidebar" [class.open]="sidebarOpen()">
+    <app-brand subtitle="Administration" />
+
+    <nav class="navigation" aria-label="Administration navigation">
+      <a class="nav-item" routerLink="/idp-admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeSidebar()">
+        <span aria-hidden="true">⌂</span>Dashboard
+      </a>
+      <a class="nav-item" routerLink="/idp-admin/clients" routerLinkActive="active" (click)="closeSidebar()">
+        <span aria-hidden="true">▣</span>Clients
+      </a>
+      <a class="nav-item" routerLink="/idp-admin/users" routerLinkActive="active" (click)="closeSidebar()">
+        <span aria-hidden="true">♙</span>Users
+      </a>
+      <a class="nav-item" routerLink="/idp-admin/roles" routerLinkActive="active" (click)="closeSidebar()">
+        <span aria-hidden="true">◆</span>Roles
+      </a>
+      <a class="nav-item" routerLink="/idp-admin/federation" routerLinkActive="active" (click)="closeSidebar()">
+        <span aria-hidden="true">⇄</span>Federation
+      </a>
+
+      <div class="nav-section-title">Registration</div>
+      <a class="nav-item" routerLink="/idp-admin/initial-access-tokens" routerLinkActive="active" (click)="closeSidebar()">
+        <span aria-hidden="true">⌁</span>Initial Access Tokens
+      </a>
+
+      <div class="nav-section-title">Configuration</div>
+      <a class="nav-item" routerLink="/idp-admin/security-policy" routerLinkActive="active" (click)="closeSidebar()">
+        <span aria-hidden="true">⚙</span>Security Policy
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="provider-status">
+        <span class="status-dot"></span>
+        <div>
+          <strong>Admin Console</strong>
+          <small>Authenticated session</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-area">
+    <header class="topbar">
+      <button class="menu-button" type="button" (click)="toggleSidebar()" [attr.aria-expanded]="sidebarOpen()" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <div class="page-heading">
+        <span class="breadcrumb">{{ breadcrumb() }}</span>
+        <h1>{{ pageTitle() }}</h1>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="text-button topbar-refresh" type="button" (click)="refreshPage()">Refresh</button>
+
+        <button class="icon-button" type="button" aria-label="Notifications">
+          ♢<i aria-hidden="true"></i>
+        </button>
+
+        <div class="profile">
+          <div class="avatar role-tooltip" [attr.data-role-tooltip]="fullRoles()" [attr.title]="fullRoles()" aria-label="User roles">{{ initials() }}</div>
+          <div class="profile-details">
+            <strong>{{ displayName() }}</strong>
+            <span [attr.title]="'Roles: ' + fullRoles()">{{ roleSummary() }}</span>
+          </div>
+
+          <button class="profile-menu-button" type="button" (click)="toggleProfileMenu($event)" [attr.aria-expanded]="profileMenuOpen()" aria-label="Open account menu">
+            ▾
+          </button>
+
+          @if (profileMenuOpen()) {
+            <div class="profile-menu open">
+              <a routerLink="/idp-admin/profile" (click)="closeProfileMenu()">Profile</a>
+              <a routerLink="/idp-admin/security" (click)="closeProfileMenu()">Security &amp; MFA</a>
+              <button type="button" (click)="logout()">Sign out</button>
+            </div>
+          }
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+
+  </div>
+
+  @if (sidebarOpen()) {
+    <button class="mobile-overlay" type="button" aria-label="Close navigation" (click)="closeSidebar()"></button>
+  }
+</div>

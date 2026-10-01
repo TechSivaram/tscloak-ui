@@ -1,0 +1,16 @@
+[
+  {
+    "context": [
+      "/api",
+      "/auth",
+      "/token",
+      "/me",
+      "/logout",
+      "/.well-known",
+      "/jwks"
+    ],
+    "target": "http://localhost:3000",
+    "secure": false,
+    "changeOrigin": true
+  }
+]

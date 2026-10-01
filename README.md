@@ -1,59 +1,54 @@
-# TscloakUi
+# TSCloak Angular UI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
+Angular 22 implementation of the TSCloak public site, IDP Admin portal, and Client Admin portal.
 
-## Development server
+## Routes
 
-To start a local development server, run:
+- `/` — public TSCloak site
+- `/idp-admin` — IDP Admin sign-in
+- `/idp-admin/dashboard` — IDP Admin dashboard
+- `/idp-client-admin/:clientId` — Client Admin sign-in
+- `/idp-client-admin/dashboard` — Client Admin dashboard
 
-```bash
-ng serve
-```
+The IDP Admin and Client Admin routes deliberately use different layout components and styling systems, matching the supplied legacy implementation.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Assets
 
-## Code scaffolding
+Original TSCloak assets from the supplied bundle are retained under `src/assets/`.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Architecture
 
-```bash
-ng generate component component-name
-```
+- Standalone Angular components
+- Signals for UI state
+- SCSS component styling
+- Zod dependency reserved for migrated validation schemas
+- Lazy placeholder pages are wired for the remaining legacy screens so the route hierarchy is established before each feature is migrated.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Build
 
-```bash
-ng generate --help
-```
+Run `npm install` and then `npm start` in an environment with the Angular 22 dependencies available.
 
-## Building
+## Client Admin route model
 
-To build the project run:
+Client Admin uses the client ID only for the login entry URL:
 
-```bash
-ng build
-```
+- `/idp-client-admin/:clientId` — Client Admin login entry
+- `/idp-client-admin/callback` — OIDC callback
+- `/idp-client-admin/dashboard` — protected application
+- `/idp-client-admin/users` — protected application
+- `/idp-client-admin/federation` — protected application
+- `/idp-client-admin/settings` — protected application
+- `/idp-client-admin/profile` — protected application
+- `/idp-client-admin/security` — protected application
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The login client ID is retained in session storage for OIDC configuration and is not included in the protected application URLs.
 
-## Running unit tests
+## IDP/API URL configuration
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+The Angular application keeps the TSCloak IDP/API origin in one place:
 
-```bash
-ng test
-```
+`src/app/core/config/app-config.ts`
 
-## Running end-to-end tests
+Change `appConfig.idpUrl` when the TSCloak IDP/API is hosted somewhere other than the local development server. Application code for both IDP Admin and Client Admin imports this value instead of hardcoding the IDP origin.
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The Angular development proxy (`proxy.conf.json`) still targets the local TSCloak server because that file is development-server infrastructure, not application runtime configuration.

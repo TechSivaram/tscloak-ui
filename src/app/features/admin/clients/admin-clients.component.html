@@ -1,0 +1,171 @@
+<section class="panel clients-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">OAuth / OIDC</p>
+      <h3>Registered clients</h3>
+    </div>
+    <button class="button primary" type="button" (click)="toggleForm()">
+      {{ formVisible() ? 'Close form' : 'Register client' }}
+    </button>
+  </div>
+
+  @if (message()) {
+    <p class="form-message" [class.error-message]="error()">{{ message() }}</p>
+  }
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Client ID</th>
+          <th>Redirect URIs</th>
+          <th>Mode</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading()) {
+          <tr><td colspan="6">Loading clients...</td></tr>
+        } @else if (clients().length === 0) {
+          <tr><td colspan="6">No clients registered.</td></tr>
+        } @else {
+          @for (client of clients(); track trackByClientId($index, client)) {
+            <tr>
+              <td>{{ client.name }}</td>
+              <td><code>{{ client.clientId }}</code></td>
+              <td>
+                @for (uri of client.redirectUris; track uri) {
+                  <span class="redirect-uri">{{ uri }}</span>
+                }
+              </td>
+              <td>{{ client.interactionMode }}</td>
+              <td>{{ client.enabled ? 'Enabled' : 'Disabled' }}</td>
+              <td class="actions-cell">
+                <button class="text-button" type="button" (click)="editClient(client)">Edit</button>
+                <button class="text-button danger-text" type="button" (click)="requestDeleteClient(client)">Delete</button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+@if (formVisible()) {
+  <section class="panel clients-panel form-panel" id="clientFormPanel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">{{ editingClientId() ? 'Application settings' : 'New application' }}</p>
+        <h3>Register client</h3>
+      </div>
+    </div>
+
+    <form class="admin-form" [formGroup]="form" (ngSubmit)="submit()">
+      <label>
+        Application name
+        <input formControlName="name" required minlength="2" placeholder="My Web Application" />
+      </label>
+
+      <fieldset class="auth-methods">
+        <legend>Token endpoint authentication</legend>
+        @for (method of authMethods; track method.value) {
+          <label>
+            <input
+              type="checkbox"
+              [checked]="isAuthMethodSelected(method.value)"
+              (change)="toggleAuthMethod(method.value)"
+            />
+            {{ method.label }}
+          </label>
+        }
+      </fieldset>
+
+      <label>
+        Public JWKS URL (needed to use private key JWT)
+        <input formControlName="jwksUri" type="url" placeholder="https://app.example.com/.well-known/jwks.json" />
+      </label>
+
+      <label>
+        Redirect URIs
+        <textarea formControlName="redirectUris" required placeholder="https://app.example.com/callback"></textarea>
+        <small>Enter one URI per line.</small>
+      </label>
+
+      <label>
+        Post-logout redirect URIs
+        <textarea formControlName="postLogoutRedirectUris" placeholder="https://app.example.com/logout/callback"></textarea>
+        <small>Enter one URI per line.</small>
+      </label>
+
+      <label>
+        Allowed scopes
+        <input formControlName="allowedScopes" value="openid profile email" />
+      </label>
+
+      <label>
+        Grant types
+        <input formControlName="grantTypes" value="authorization_code refresh_token" />
+      </label>
+
+      <label>
+        Response types
+        <input formControlName="responseTypes" value="code" />
+      </label>
+
+      <label>
+        Interaction mode
+        <select formControlName="interactionMode">
+          <option value="hosted">Hosted TSCloak pages</option>
+          <option value="external">External client pages</option>
+        </select>
+      </label>
+
+      <label>
+        External login page URL
+        <input formControlName="interactionLoginUrl" type="url" placeholder="https://app.example.com/login" />
+      </label>
+
+      <label>
+        External consent page URL
+        <input formControlName="interactionConsentUrl" type="url" placeholder="https://app.example.com/consent" />
+      </label>
+
+      <label>
+        Client status
+        <select formControlName="enabled">
+          <option value="true">Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
+      </label>
+
+      <div class="form-actions">
+        <button class="button secondary" type="button" (click)="cancelForm()">Cancel</button>
+        <button class="button primary" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Saving...' : (editingClientId() ? 'Update client' : 'Create client') }}
+        </button>
+      </div>
+    </form>
+  </section>
+}
+
+
+@if (deleteTarget(); as client) {
+  <div class="confirm-modal" (click)="cancelDeleteClient()">
+    <div class="confirm-backdrop"></div>
+    <section class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-client-title" (click)="$event.stopPropagation()">
+      <div class="confirm-icon danger">!</div>
+      <div class="confirm-content">
+        <p class="eyebrow">Delete client</p>
+        <h3 id="delete-client-title">Delete {{ client.name }}?</h3>
+        <p>This action cannot be undone. The client and its configuration will be permanently removed.</p>
+        <div class="confirm-actions">
+          <button class="button secondary" type="button" (click)="cancelDeleteClient()">Cancel</button>
+          <button class="button danger" type="button" (click)="confirmDeleteClient()">Delete client</button>
+        </div>
+      </div>
+    </section>
+  </div>
+}

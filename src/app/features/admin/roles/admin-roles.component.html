@@ -1,0 +1,115 @@
+<section class="panel roles-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Authorization</p>
+      <h3>Roles</h3>
+    </div>
+
+    <button class="button primary" type="button" (click)="toggleForm()">
+      Create role
+    </button>
+  </div>
+
+  @if (message()) {
+    <p class="form-message" [class.error-message]="error()">{{ message() }}</p>
+  }
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading()) {
+          <tr>
+            <td colspan="4">Loading roles...</td>
+          </tr>
+        } @else if (roles().length) {
+          @for (role of roles(); track trackById($index, role)) {
+            <tr>
+              <td>{{ role.name }}</td>
+              <td>{{ role.description || '—' }}</td>
+              <td><code>{{ role.id }}</code></td>
+              <td class="actions-cell">
+                <button class="text-button" type="button" (click)="openRoleEditor(role)">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          }
+        } @else {
+          <tr>
+            <td colspan="4">No roles found.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+@if (formVisible()) {
+  <section class="panel role-edit-panel" id="roleFormPanel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Authorization</p>
+        <h3>Create role</h3>
+      </div>
+    </div>
+
+    <form class="admin-form role-form" [formGroup]="form" (ngSubmit)="createRole()">
+      <label>
+        Name
+        <input formControlName="name" autocomplete="off" required />
+      </label>
+
+      <label>
+        Description
+        <input formControlName="description" autocomplete="off" />
+      </label>
+
+      <div class="form-actions">
+        <button class="button secondary" type="button" (click)="cancelForm()">
+          Cancel
+        </button>
+        <button class="button primary" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Creating...' : 'Create role' }}
+        </button>
+      </div>
+    </form>
+  </section>
+}
+
+@if (editingRole()) {
+  <section class="panel role-edit-panel" id="roleEditPanel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Authorization</p>
+        <h3>Edit {{ editingRole()!.name }}</h3>
+      </div>
+    </div>
+
+    <form class="admin-form role-form" [formGroup]="editForm" (ngSubmit)="saveRole()">
+      <label>
+        Role name
+        <input [value]="editingRole()!.name" disabled />
+      </label>
+
+      <label>
+        Description
+        <input formControlName="description" autocomplete="off" />
+      </label>
+
+      <div class="form-actions">
+        <button class="button secondary" type="button" (click)="closeRoleEditor()">Cancel</button>
+        <button class="button primary" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Saving...' : 'Save changes' }}
+        </button>
+      </div>
+    </form>
+  </section>
+}

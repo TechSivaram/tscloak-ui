@@ -1,0 +1,219 @@
+<section class="management-intro">
+  <div>
+    <p class="eyebrow">Identity &amp; access</p>
+    <h2>Users</h2>
+    <p>Manage identities and control which roles they can use.</p>
+  </div>
+
+  <button class="button primary intro-create-button" type="button" (click)="toggleCreateForm()">
+    {{ formVisible() ? 'Close form' : 'Create user' }}
+  </button>
+
+  @if (clients().length) {
+    <label class="client-scope-control">
+      <span>Managing client</span>
+      <select
+        [value]="selectedClientId()"
+        (change)="onClientScopeChange($any($event.target).value)"
+      >
+        @for (client of clients(); track client.clientId) {
+          <option [value]="client.clientId">{{ client.name }}</option>
+        }
+      </select>
+    </label>
+  }
+</section>
+
+<section class="panel users-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Directory</p>
+      <h3>Registered users</h3>
+    </div>
+    <span class="record-count">{{ users().length }} {{ users().length === 1 ? 'user' : 'users' }}</span>
+  </div>
+
+  @if (message()) {
+    <p class="form-message" [class.error-message]="error()">{{ message() }}</p>
+  }
+
+  <div class="table-wrap">
+    <table>
+      <colgroup>
+        <col class="col-username" />
+        <col class="col-email" />
+        <col class="col-roles" />
+        <col class="col-status" />
+        <col class="col-created" />
+        <col class="col-actions" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading()) {
+          <tr><td colspan="6">Loading users...</td></tr>
+        } @else if (users().length === 0) {
+          <tr><td colspan="6">No users found.</td></tr>
+        } @else {
+          @for (user of users(); track trackByUserId($index, user)) {
+            <tr>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <div class="role-picker">
+                  <button
+                    class="role-picker-button"
+                    type="button"
+                    [attr.aria-expanded]="openRoleUserId() === user.id"
+                    (click)="toggleRolePicker(user)"
+                  >
+                    <span>{{ roleSummary(user) }}</span>
+                    <span aria-hidden="true">⌄</span>
+                  </button>
+
+                  @if (openRoleUserId() === user.id) {
+                    <div class="role-picker-menu">
+                      <input
+                        class="role-search"
+                        type="search"
+                        placeholder="Search roles"
+                        aria-label="Search roles"
+                        [value]="roleSearch()"
+                        (input)="roleSearch.set($any($event.target).value)"
+                      />
+
+                      <div class="role-options">
+                        @for (role of filteredRoles(); track trackByRole($index, role)) {
+                          <label class="role-option">
+                            <input
+                              type="checkbox"
+                              [checked]="isRoleSelected(user, role.name)"
+                              (change)="toggleRole(user, role.name)"
+                            />
+                            <span>{{ role.name }}</span>
+                          </label>
+                        } @empty {
+                          <span class="role-empty">No roles configured</span>
+                        }
+                      </div>
+
+                      <div class="role-picker-footer">
+                        <button
+                          class="text-button"
+                          type="button"
+                          (click)="clearRoles(user)"
+                        >
+                          Clear
+                        </button>
+                        <button
+                          class="button primary compact-button"
+                          type="button"
+                          [disabled]="saving()"
+                          (click)="saveRoles(user)"
+                        >
+                          Apply
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </td>
+              <td>
+                <span class="status-pill" [class.enabled]="user.enabled" [class.disabled]="!user.enabled">
+                  {{ user.enabled ? 'Enabled' : 'Disabled' }}
+                </span>
+              </td>
+              <td>{{ formatCreated(user.createdAt) }}</td>
+              <td class="actions-cell">
+                <button class="text-button" type="button" (click)="openUserEditor(user)">Edit</button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+@if (formVisible()) {
+  <section class="panel users-panel form-panel" id="userFormPanel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Identity</p>
+        <h3>Create user</h3>
+      </div>
+    </div>
+
+    <form class="admin-form" [formGroup]="createForm" (ngSubmit)="createUser()">
+      <label>
+        Username
+        <input formControlName="username" required minlength="3" autocomplete="username" />
+      </label>
+
+      <label>
+        Email
+        <input formControlName="email" type="email" required autocomplete="email" />
+      </label>
+
+      <label class="password-field">
+        Temporary password
+        <input formControlName="password" type="password" required minlength="8" autocomplete="new-password" />
+      </label>
+
+      <div class="form-actions">
+        <button class="button secondary" type="button" (click)="toggleCreateForm()">
+          Cancel
+        </button>
+        <button class="button primary" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Creating...' : 'Create user' }}
+        </button>
+      </div>
+    </form>
+  </section>
+}
+
+@if (editingUser(); as user) {
+  <section class="panel users-panel user-edit-panel" id="userEditPanel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Identity</p>
+        <h3>Edit {{ user.username }}</h3>
+      </div>
+    </div>
+
+    <form class="admin-form" [formGroup]="editForm" (ngSubmit)="saveUser()">
+      <label>
+        Username
+        <input [value]="user.username" disabled />
+      </label>
+
+      <label>
+        Email
+        <input formControlName="email" type="email" required autocomplete="email" />
+      </label>
+
+      <label>
+        Status
+        <select formControlName="enabled">
+          <option value="true">Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
+      </label>
+
+      <div class="form-actions">
+        <button class="button secondary" type="button" (click)="closeUserEditor()">Cancel</button>
+        <button class="button primary" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Saving...' : 'Save changes' }}
+        </button>
+      </div>
+    </form>
+  </section>
+}

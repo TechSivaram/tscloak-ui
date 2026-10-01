@@ -1,0 +1,135 @@
+<section class="panel providers-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Identity providers</p>
+      <h3>Federation providers</h3>
+    </div>
+    <button class="button primary" type="button" (click)="openCreate()">Add provider</button>
+  </div>
+
+  @if (message() && !formVisible()) {
+    <p class="form-message" [class.error-message]="error()">{{ message() }}</p>
+  }
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Issuer</th>
+          <th>Client ID</th>
+          <th>Scopes</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading()) {
+          <tr><td colspan="7">Loading providers...</td></tr>
+        } @else if (providers().length) {
+          @for (provider of providers(); track trackById($index, provider)) {
+            <tr>
+              <td>{{ provider.name }}</td>
+              <td>{{ provider.type }}</td>
+              <td class="issuer-cell">{{ provider.issuer }}</td>
+              <td><code>{{ provider.clientId }}</code></td>
+              <td>{{ provider.scopes.join(', ') }}</td>
+              <td>{{ provider.enabled ? 'Enabled' : 'Disabled' }}</td>
+              <td class="provider-actions">
+                <button class="text-button" type="button" (click)="openEdit(provider)">Edit</button>
+                <button class="text-button" type="button" (click)="toggleProvider(provider)">{{ provider.enabled ? 'Disable' : 'Enable' }}</button>
+                <button class="text-button danger" type="button" (click)="requestDeleteProvider(provider)">Delete</button>
+              </td>
+            </tr>
+          }
+        } @else {
+          <tr><td colspan="7">No federation providers configured.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+@if (formVisible()) {
+  <section class="panel provider-form-panel" id="providerFormPanel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Shared configuration</p>
+        <h3>{{ editingProvider() ? 'Edit ' + editingProvider()!.name : 'Add federation provider' }}</h3>
+      </div>
+      <button class="text-button" type="button" (click)="closeForm()">Cancel</button>
+    </div>
+
+    @if (message()) {
+      <p class="form-message" [class.error-message]="error()">{{ message() }}</p>
+    }
+
+    <form class="admin-form provider-form" [formGroup]="form" (ngSubmit)="saveProvider()">
+      <label>
+        Name
+        <input formControlName="name" autocomplete="off" required />
+      </label>
+
+      <label>
+        Type
+        <select formControlName="type" required>
+          <option value="oidc">OIDC</option>
+        </select>
+      </label>
+
+      <label>
+        Issuer URL
+        <input formControlName="issuer" type="url" placeholder="https://accounts.google.com" required />
+      </label>
+
+      <label>
+        Upstream client ID
+        <input formControlName="clientId" autocomplete="off" required />
+      </label>
+
+      <label>
+        Upstream client secret
+        <input formControlName="clientSecret" type="password" autocomplete="new-password" />
+        <small>{{ editingProvider() ? 'Leave blank to keep the current secret.' : 'Required when creating a provider.' }}</small>
+      </label>
+
+      <label>
+        Scopes
+        <textarea formControlName="scopes" rows="3" placeholder="openid profile email"></textarea>
+        <small>Separate scopes with spaces or commas.</small>
+      </label>
+
+      <label>
+        Availability
+        <select formControlName="enabled">
+          <option value="true">Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
+      </label>
+
+      <button class="button primary" type="submit" [disabled]="saving()">
+        {{ saving() ? (editingProvider() ? 'Saving...' : 'Creating...') : (editingProvider() ? 'Save changes' : 'Create provider') }}
+      </button>
+    </form>
+  </section>
+}
+
+
+@if (deleteTarget(); as provider) {
+  <div class="confirm-modal" (click)="cancelDeleteProvider()">
+    <div class="confirm-backdrop"></div>
+    <section class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-provider-title" (click)="$event.stopPropagation()">
+      <div class="confirm-icon danger">!</div>
+      <div class="confirm-content">
+        <p class="eyebrow">Delete federation provider</p>
+        <h3 id="delete-provider-title">Delete {{ provider.name }}?</h3>
+        <p>Federated identities linked to this provider will also be removed. This action cannot be undone.</p>
+        <div class="confirm-actions">
+          <button class="button secondary" type="button" (click)="cancelDeleteProvider()">Cancel</button>
+          <button class="button danger" type="button" (click)="confirmDeleteProvider()">Delete provider</button>
+        </div>
+      </div>
+    </section>
+  </div>
+}

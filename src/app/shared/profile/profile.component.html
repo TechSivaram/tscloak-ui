@@ -1,0 +1,82 @@
+<section class="management-intro">
+  <div class="profile-heading">
+    <img class="profile-avatar" [src]="profile()?.['avatarUrl']" alt="" [hidden]="!profile()?.['avatarUrl']">
+    <div class="profile-avatar-fallback" [hidden]="!!profile()?.['avatarUrl']">{{initials}}</div>
+    <div>
+      <p class="eyebrow">Account</p>
+      <h2>{{name}}</h2>
+      @if (profile()?.['federation']?.['providerName']) {
+        <p class="profile-federation">Signed in with {{profile()?.['federation']?.['providerName']}}</p>
+      }
+      <p>Authenticated administrator account details.</p>
+    </div>
+  </div>
+  <a class="button secondary" [routerLink]="dashboardLink">Back to dashboard</a>
+</section>
+
+<section class="panel profile-details-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Identity</p>
+      <h3>Account information</h3>
+    </div>
+  </div>
+  <dl class="profile-list">
+    <div><dt>Username</dt><dd>{{profile()?.['username'] || '—'}}</dd></div>
+    <div><dt>Email</dt><dd>{{profile()?.['email'] || '—'}}</dd></div>
+    <div><dt>Roles</dt><dd>{{profile()?.['roles']?.length ? profile()?.['roles'].join(', ') : '—'}}</dd></div>
+    <div><dt>Client</dt><dd>{{profile()?.['client']?.['name'] || '—'}}</dd></div>
+  </dl>
+</section>
+
+<section class="panel change-password-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Security</p>
+      <h3>Change password</h3>
+    </div>
+  </div>
+
+  <form class="password-form" [formGroup]="passwordForm" (ngSubmit)="changePassword()" novalidate>
+    <p class="password-help">Change the password for your authenticated account.</p>
+
+    <div class="form-field">
+      <label for="currentPassword">Current password</label>
+      <input id="currentPassword" type="password" autocomplete="current-password" formControlName="currentPassword">
+      @if (passwordForm.controls.currentPassword.touched && passwordForm.controls.currentPassword.invalid) {
+        <small class="field-error">Enter your current password.</small>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="newPassword">New password</label>
+      <input id="newPassword" type="password" autocomplete="new-password" formControlName="newPassword">
+      @if (passwordForm.controls.newPassword.touched && passwordForm.controls.newPassword.hasError('minlength')) {
+        <small class="field-error">New password must be at least 8 characters.</small>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="confirmPassword">Confirm new password</label>
+      <input id="confirmPassword" type="password" autocomplete="new-password" formControlName="confirmPassword">
+      @if (passwordForm.controls.confirmPassword.touched && passwordForm.controls.confirmPassword.hasError('minlength')) {
+        <small class="field-error">Confirmation must be at least 8 characters.</small>
+      }
+    </div>
+
+    @if (passwordError()) {
+      <p class="form-message error" role="alert">{{passwordError()}}</p>
+    }
+
+    @if (passwordMessage()) {
+      <p class="form-message success" role="status">{{passwordMessage()}}</p>
+    }
+
+    <div class="form-actions">
+      <button class="button secondary" type="button" [disabled]="savingPassword()" (click)="passwordForm.reset(); passwordError.set(''); passwordMessage.set(''); passwordChanged.set(false)">Clear</button>
+      <button class="button primary" type="submit" [disabled]="savingPassword()">
+        {{savingPassword() ? 'Changing password…' : 'Change password'}}
+      </button>
+    </div>
+  </form>
+</section>

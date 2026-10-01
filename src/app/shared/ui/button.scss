@@ -1,0 +1,50 @@
+@mixin ts-button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+
+  &:focus-visible {
+    outline: 3px solid rgba(237, 168, 77, .45);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: .55;
+    cursor: wait;
+    transform: none;
+  }
+}
+
+@mixin ts-button-primary {
+  @include ts-button-base;
+  color: #fff;
+  background: var(--ts-green);
+  border-color: var(--ts-green);
+
+  &:hover:not(:disabled) {
+    background: var(--ts-green-dark);
+    border-color: var(--ts-green-dark);
+    transform: translateY(-1px);
+  }
+}
+
+@mixin ts-button-secondary {
+  @include ts-button-base;
+  color: var(--ts-text);
+  background: #fff;
+  border-color: var(--ts-border);
+
+  &:hover:not(:disabled) {
+    border-color: var(--ts-primary);
+  }
+}

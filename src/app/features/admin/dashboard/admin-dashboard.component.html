@@ -1,0 +1,145 @@
+<section class="welcome">
+  <div>
+    <p class="eyebrow">Identity Provider</p>
+    <h2>Welcome back, <span>{{ displayName() }}</span></h2>
+    <p>Manage your TSCloak identity platform from one place.</p>
+  </div>
+  <a class="button primary" routerLink="/idp-admin/clients">Manage Clients</a>
+</section>
+
+<section class="stats-grid">
+  <a class="stat-card" routerLink="/idp-admin/clients" aria-label="View registered clients">
+    <div class="stat-icon clients-icon">▣</div>
+    <div>
+      <span>Registered Clients</span>
+      <strong>{{ clientCount() }}</strong>
+      <small>OAuth / OIDC applications</small>
+    </div>
+  </a>
+
+  <a class="stat-card" routerLink="/idp-admin/users" aria-label="View users">
+    <div class="stat-icon users-icon">♙</div>
+    <div>
+      <span>Users</span>
+      <strong>{{ userCount() }}</strong>
+      <small>Registered identities</small>
+    </div>
+  </a>
+
+  <a class="stat-card" routerLink="/idp-admin/initial-access-tokens" aria-label="View initial access tokens">
+    <div class="stat-icon tokens-icon">⌁</div>
+    <div>
+      <span>Initial Access Tokens</span>
+      <strong>{{ tokenCount() }}</strong>
+      <small>Registration credentials</small>
+    </div>
+  </a>
+
+  <a class="stat-card" routerLink="/idp-admin/roles" aria-label="View roles">
+    <div class="stat-icon roles-icon">◆</div>
+    <div>
+      <span>Roles</span>
+      <strong>{{ roleCount() }}</strong>
+      <small>Authorization roles</small>
+    </div>
+  </a>
+</section>
+
+<section class="dashboard-grid">
+  <article class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Platform</p>
+        <h3>System Status</h3>
+      </div>
+      <span class="healthy-badge">
+        <span class="status-dot"></span>
+        {{ overallStatus() }}
+      </span>
+    </div>
+
+    <div class="status-list">
+      <div class="status-item">
+        <div class="status-label">
+          <span class="service-icon">◉</span>
+          <div><strong>OIDC Provider</strong><small>Authorization and token services</small></div>
+        </div>
+        <span class="status-value">{{ oidcProviderStatus() }}</span>
+      </div>
+
+      <div class="status-item">
+        <div class="status-label">
+          <span class="service-icon">▤</span>
+          <div><strong>Database</strong><small>Identity and configuration storage</small></div>
+        </div>
+        <span class="status-value">{{ databaseStatus() }}</span>
+      </div>
+
+      <div class="status-item">
+        <div class="status-label">
+          <span class="service-icon">◇</span>
+          <div><strong>Registration Service</strong><small>OAuth/OIDC client registration</small></div>
+        </div>
+        <span class="status-value">{{ registrationStatus() }}</span>
+      </div>
+
+      <div class="status-item">
+        <div class="status-label">
+          <span class="service-icon">◆</span>
+          <div><strong>Security Policy</strong><small>Token and session configuration</small></div>
+        </div>
+        <span class="status-value">{{ securityPolicyStatus() }}</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Administration</p>
+        <h3>Quick Actions</h3>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <a routerLink="/idp-admin/clients" class="quick-action">
+        <span class="quick-icon">▣</span>
+        <span><strong>Register Client</strong><small>Add an OAuth/OIDC application</small></span>
+        <b>›</b>
+      </a>
+      <a routerLink="/idp-admin/users" class="quick-action">
+        <span class="quick-icon">♙</span>
+        <span><strong>Create User</strong><small>Create a new identity</small></span>
+        <b>›</b>
+      </a>
+      <a routerLink="/idp-admin/initial-access-tokens" class="quick-action">
+        <span class="quick-icon">⌁</span>
+        <span><strong>Create Registration Token</strong><small>Authorize client registration</small></span>
+        <b>›</b>
+      </a>
+      <a routerLink="/idp-admin/security-policy" class="quick-action">
+        <span class="quick-icon">⚙</span>
+        <span><strong>Security Policy</strong><small>Review token and session settings</small></span>
+        <b>›</b>
+      </a>
+    </div>
+  </article>
+</section>
+
+<section class="panel activity-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Audit</p>
+      <h3>Recent Activity</h3>
+    </div>
+    <button class="text-button" type="button" (click)="loadDashboard()" [disabled]="loading()">
+      {{ loading() ? 'Refreshing...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <div class="activity-empty">
+    <div class="empty-icon">◌</div>
+    <strong>No activity recorded</strong>
+    <span>Audit events are not available yet.</span>
+  </div>
+</section>

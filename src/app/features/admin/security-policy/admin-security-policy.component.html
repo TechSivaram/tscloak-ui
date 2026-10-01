@@ -1,0 +1,11 @@
+<section class="panel">
+  <div class="panel-header">
+    <div><p class="eyebrow">Configuration</p><h3>Token and session policy</h3></div>
+    <a class="text-button" routerLink="/idp-admin/dashboard">Back to dashboard</a>
+  </div>
+  <form class="admin-form" (ngSubmit)="save()">
+    @for(item of names;track item[0]){<label>{{item[1]}}<input type="number" [name]="item[0]" [value]="fields()[item[0]] ?? ''" (input)="set(item[0], $any($event.target).value)"></label>}
+    <button class="button primary" type="submit" [disabled]="saving()">{{saving()?'Saving…':'Save policy'}}</button>
+    <p data-message>{{message()}}</p>
+  </form>
+</section>

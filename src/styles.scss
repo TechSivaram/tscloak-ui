@@ -1,1 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+@use './styles/variables';
+@use './styles/reset';
+@use './styles/mixins';
+@use './styles/utilities';
+
+/* =========================================================
+   Shared admin form controls
+   Keep controls visibly identifiable before focus.
+   Applies to both IDP Admin and Client Admin shells.
+   ========================================================= */
+
+.app-shell input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']),
+.app-shell textarea,
+.app-shell select {
+  border: 1px solid #aebbb3 !important;
+  background-color: #ffffff !important;
+  color: #15231b;
+  box-shadow: inset 0 0 0 1px rgba(21, 35, 27, 0.025);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.app-shell input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']):hover,
+.app-shell textarea:hover,
+.app-shell select:hover {
+  border-color: #7f8f86 !important;
+}
+
+.app-shell input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']):focus,
+.app-shell textarea:focus,
+.app-shell select:focus {
+  border-color: #138808 !important;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(19, 136, 8, 0.14) !important;
+}
+
+.app-shell input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']):disabled,
+.app-shell textarea:disabled,
+.app-shell select:disabled {
+  border-color: #cbd4cf !important;
+  background-color: #f1f4f2 !important;
+  color: #7b8781;
+  cursor: not-allowed;
+}
+
+.app-shell input::placeholder,
+.app-shell textarea::placeholder {
+  color: #7b8781;
+  opacity: 1;
+}
+
+/* Preserve native sizing/appearance of selection controls. */
+.app-shell input[type='checkbox'],
+.app-shell input[type='radio'] {
+  border: initial !important;
+  box-shadow: none !important;
+  background: initial !important;
+}

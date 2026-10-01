@@ -1,0 +1,7 @@
+<main class="callback-shell">
+  <section class="callback-card" [class.callback-error]="error">
+    <img src="/assets/tscloak-icon.png" alt="TSCloak" class="logo">
+    <h1>{{ error ? 'Authentication failed' : 'Signing in...' }}</h1>
+    <p>{{ status }}</p>
+  </section>
+</main>
