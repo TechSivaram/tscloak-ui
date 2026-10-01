@@ -21,6 +21,7 @@ export class AdminLayoutComponent implements OnInit {
   readonly breadcrumb = signal('TSCloak');
   readonly displayName = signal('Administrator');
   readonly initials = signal('AD');
+  readonly avatarUrl = signal<string | null>(null);
   readonly roleSummary = signal('IDP_ADMIN');
   readonly fullRoles = signal('IDP_ADMIN');
 
@@ -73,6 +74,11 @@ export class AdminLayoutComponent implements OnInit {
       const roles = user?.roles ?? [];
 
       this.displayName.set(name);
+      this.avatarUrl.set(
+        typeof user?.['avatarUrl'] === 'string' && user['avatarUrl'].trim()
+          ? user['avatarUrl'] as string
+          : null,
+      );
 
       // The legacy IDP admin console uses the fixed “AD” avatar mark
       // for the administrator account, including when the username is

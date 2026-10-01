@@ -426,37 +426,41 @@ button {
 .avatar {
     width: 36px;
     height: 36px;
-
     border-radius: 50%;
-
     display: grid;
     place-items: center;
-
     background: var(--primary-soft);
-
     color: var(--green);
-
     font-size: 12px;
     font-weight: 700;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
+    flex: 0 0 36px;
 }
 
-.avatar img {
+.avatar-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.avatar img[hidden] { display: none; }
-.avatar .avatar-fallback[hidden] { display: none; }
-.avatar-fallback { position: absolute; inset: 0; display: grid; place-items: center; }
+.avatar-image[hidden],
+.avatar-fallback[hidden] {
+    display: none;
+}
 
-.avatar.role-tooltip {
+.avatar-fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
+
+.profile.role-tooltip {
     cursor: help;
 }
 
-.avatar.role-tooltip::after {
+.profile.role-tooltip::after {
     content: attr(data-role-tooltip);
     position: absolute;
     left: 50%;
@@ -481,7 +485,8 @@ button {
     box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
 }
 
-.avatar.role-tooltip:hover::after {
+.profile.role-tooltip:hover::after,
+.profile.role-tooltip:focus-within::after {
     opacity: 1;
     transform: translate(-50%, 0);
 }
@@ -489,7 +494,6 @@ button {
 .profile-details {
     display: flex;
     flex-direction: column;
-
     min-width: 90px;
 }
 
@@ -499,43 +503,8 @@ button {
 
 .profile-details span {
     margin-top: 2px;
-
     color: var(--muted);
-
     font-size: 10px;
-}
-
-.profile-details span[data-role-tooltip] {
-    position: relative;
-    cursor: help;
-}
-
-.profile-details span[data-role-tooltip]::after {
-    content: attr(data-role-tooltip);
-    position: absolute;
-    right: 0;
-    top: calc(100% + 9px);
-    z-index: 140;
-    width: max-content;
-    max-width: 260px;
-    padding: 8px 10px;
-    border-radius: 7px;
-    background: #17351d;
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 1.4;
-    white-space: normal;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-3px);
-    transition: opacity .15s ease, transform .15s ease;
-}
-
-.profile-details span[data-role-tooltip]:hover::after,
-.profile-details span[data-role-tooltip]:focus-visible::after {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .profile-menu-button {

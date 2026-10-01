@@ -59,11 +59,14 @@
           ♢<i aria-hidden="true"></i>
         </button>
 
-        <div class="profile">
-          <div class="avatar role-tooltip" [attr.data-role-tooltip]="fullRoles()" [attr.title]="fullRoles()" aria-label="User roles">{{ initials() }}</div>
+        <div class="profile role-tooltip" [attr.data-role-tooltip]="fullRoles()">
+          <div class="avatar" aria-label="User roles">
+            <img class="avatar-image" [src]="avatarUrl()" alt="" [hidden]="!avatarUrl()" (error)="avatarUrl.set(null)">
+            <span class="avatar-fallback" [hidden]="!!avatarUrl()">{{ initials() }}</span>
+          </div>
           <div class="profile-details">
             <strong>{{ displayName() }}</strong>
-            <span [attr.title]="'Roles: ' + fullRoles()">{{ roleSummary() }}</span>
+            <span>{{ roleSummary() }}</span>
           </div>
 
           <button class="profile-menu-button" type="button" (click)="toggleProfileMenu($event)" [attr.aria-expanded]="profileMenuOpen()" aria-label="Open account menu">

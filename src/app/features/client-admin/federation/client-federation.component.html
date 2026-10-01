@@ -36,15 +36,7 @@
             <tr>
               <td>{{ p.name }}</td>
               <td>{{ p.type }}</td>
-              <td>
-                {{
-                  p.availableGlobally
-                    ? p.enabled
-                      ? 'Enabled for this client'
-                      : 'Disabled for this client'
-                    : 'Disabled globally'
-                }}
-              </td>
+              <td>{{ p.availableGlobally ? (p.enabled ? 'Enabled for this client' : 'Disabled for this client') : 'Disabled globally' }}</td>
               <td class="action-cell">
                 <button
                   class="button secondary"

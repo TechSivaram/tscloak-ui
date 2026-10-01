@@ -2,9 +2,7 @@
   <div class="settings-hero-copy">
     <span class="eyebrow">Application configuration</span>
     <h2>{{ settings()?.name || 'Client settings' }}</h2>
-    <p>
-      Keep your OAuth/OIDC application details current without changing its identity or ownership.
-    </p>
+    <p>Keep your OAuth/OIDC application details current without changing its identity or ownership.</p>
   </div>
   <div class="protected-note">
     <span>Protected</span>
@@ -31,33 +29,15 @@
         </label>
         <label>
           Public JWKS URL (needed to use private key JWT)
-          <input
-            name="jwksUri"
-            [(ngModel)]="form.jwksUri"
-            type="url"
-            placeholder="https://app.example.com/.well-known/jwks.json"
-          />
+          <input name="jwksUri" [(ngModel)]="form.jwksUri" type="url" placeholder="https://app.example.com/.well-known/jwks.json" />
         </label>
       </div>
 
       <fieldset class="auth-methods">
         <legend>Token endpoint authentication</legend>
-        @for (
-          m of [
-            'none',
-            'client_secret_basic',
-            'client_secret_post',
-            'client_secret_jwt',
-            'private_key_jwt',
-          ];
-          track m
-        ) {
+        @for (m of ['none','client_secret_basic','client_secret_post','client_secret_jwt','private_key_jwt']; track m) {
           <label class="check">
-            <input
-              type="checkbox"
-              [checked]="form.tokenEndpointAuthMethods?.includes(m)"
-              (change)="toggle(m)"
-            />
+            <input type="checkbox" [checked]="form.tokenEndpointAuthMethods?.includes(m)" (change)="toggle(m)" />
             <span>{{ m }}</span>
           </label>
         }
@@ -82,10 +62,7 @@
       </label>
       <label>
         Post-logout redirect URIs
-        <textarea
-          name="postLogoutRedirectUris"
-          [(ngModel)]="form.postLogoutRedirectUris"
-        ></textarea>
+        <textarea name="postLogoutRedirectUris" [(ngModel)]="form.postLogoutRedirectUris"></textarea>
         <small>One URI per line.</small>
       </label>
     </div>
