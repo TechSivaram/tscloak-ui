@@ -239,77 +239,90 @@ The client ID remains available through the established session/client context f
 
 ## 🖥️ Application Screenshots
 
-The Angular administration UI provides a responsive **Client Admin** experience together with shared identity and MFA screens.
+The screenshots below cover the TSCloak Angular administration experience, shared authentication UI, OIDC flows, federation, security/MFA, and responsive views captured during development.
+
+### 🔐 IDP Admin & Platform Administration
+
+<details>
+<summary><strong>IDP Admin — platform screens</strong></summary>
+
+![TSCloak screenshot 06](docs/screenshots/screen-06.png)
+
+![TSCloak screenshot 07](docs/screenshots/screen-07.png)
+
+![TSCloak screenshot 08](docs/screenshots/screen-08.png)
+
+![TSCloak screenshot 09](docs/screenshots/screen-09.png)
+
+![TSCloak screenshot 10](docs/screenshots/screen-10.png)
+
+![TSCloak screenshot 11](docs/screenshots/screen-11.png)
+
+![TSCloak screenshot 12](docs/screenshots/screen-12.png)
+
+![TSCloak screenshot 13](docs/screenshots/screen-13.png)
+
+![TSCloak screenshot 14](docs/screenshots/screen-14.png)
+
+![TSCloak screenshot 15](docs/screenshots/screen-15.png)
+
+</details>
 
 ### 👥 Client Admin
 
 <details>
-<summary><strong>Dashboard</strong></summary>
+<summary><strong>Client Admin — dashboard, users, settings, federation and profile</strong></summary>
 
-![TSCloak Client Admin Dashboard](docs/screenshots/client-admin-dashboard.png)
+![TSCloak Client Admin Dashboard](docs/screenshots/screen-21.png)
 
-</details>
+![TSCloak Client Admin Users](docs/screenshots/screen-22.png)
 
-<details>
-<summary><strong>Users</strong></summary>
+![TSCloak Client Admin Settings](docs/screenshots/screen-23.png)
 
-![TSCloak Client Admin Users](docs/screenshots/client-admin-users.png)
+![TSCloak Client Admin Federation](docs/screenshots/screen-24.png)
 
-</details>
-
-<details>
-<summary><strong>Client Settings</strong></summary>
-
-![TSCloak Client Admin Settings](docs/screenshots/client-admin-settings.png)
+![TSCloak Client Admin Profile](docs/screenshots/screen-25.png)
 
 </details>
 
-<details>
-<summary><strong>Federation</strong></summary>
+### 🔒 Security, MFA & Recovery
 
-![TSCloak Client Admin Federation](docs/screenshots/client-admin-federation.png)
+<details>
+<summary><strong>MFA enrollment, recovery and security actions</strong></summary>
+
+![TSCloak MFA enrollment](docs/screenshots/screen-26.png)
+
+![TSCloak MFA recovery](docs/screenshots/screen-27.png)
+
+![TSCloak regenerate recovery codes](docs/screenshots/screen-28.png)
+
+![TSCloak MFA verification](docs/screenshots/screen-29.png)
 
 </details>
 
-<details>
-<summary><strong>Profile</strong></summary>
-
-![TSCloak Client Admin Profile](docs/screenshots/client-admin-profile.png)
-
-</details>
+### 🔑 Authentication & OIDC Interaction Screens
 
 <details>
-<summary><strong>Security &amp; MFA — Enrollment</strong></summary>
+<summary><strong>Login, authorization, password and authentication flows</strong></summary>
 
-![TSCloak Client Admin Security and MFA](docs/screenshots/client-admin-security-mfa.png)
+![TSCloak authentication screen 04](docs/screenshots/screen-04.png)
 
-</details>
+![TSCloak authentication screen 05](docs/screenshots/screen-05.png)
 
-<details>
-<summary><strong>Security &amp; MFA — Recovery</strong></summary>
+![TSCloak authentication screen 16](docs/screenshots/screen-16.png)
 
-![TSCloak Client Admin MFA Recovery](docs/screenshots/client-admin-security-mfa-recovery.png)
+![TSCloak authentication screen 17](docs/screenshots/screen-17.png)
 
-</details>
+![TSCloak authentication screen 18](docs/screenshots/screen-18.png)
 
-### 🔐 Shared Identity UI
+![TSCloak authentication screen 19](docs/screenshots/screen-19.png)
 
-<details>
-<summary><strong>Regenerate Recovery Codes</strong></summary>
-
-![TSCloak Regenerate Recovery Codes](docs/screenshots/shared-regenerate-recovery-codes.png)
-
-</details>
-
-<details>
-<summary><strong>MFA Verification</strong></summary>
-
-![TSCloak MFA Verification](docs/screenshots/shared-mfa-verification.png)
+![TSCloak authentication screen 20](docs/screenshots/screen-20.png)
 
 </details>
 
 > [!IMPORTANT]
-> The screenshots above are captured from the demo environment. Before publishing this README in a public repository, make sure any visible client identifiers, setup secrets, OTP seeds, recovery codes, email addresses, or other environment-specific values are demo-only or redacted.
+> These screenshots were captured from the TSCloak demo/development environment. Before publishing them publicly, verify that visible client IDs, email addresses, setup keys, OTP values, recovery codes, tokens, or other environment-specific values are demo-only or redacted.
 
 ---
 
