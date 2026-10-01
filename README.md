@@ -84,6 +84,7 @@ The Angular implementation should reproduce the required behavior of the legacy 
 - [Goals](#-goals)
 - [Target architecture](#-target-architecture)
 - [Portal structure](#-portal-structure)
+- [Application Screenshots](#-application-Screenshots)
 - [Application structure](#-application-structure)
 - [Authentication and request flow](#-authentication-and-request-flow)
 - [Legacy compatibility](#-legacy-compatibility)
