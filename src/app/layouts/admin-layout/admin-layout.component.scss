@@ -1757,3 +1757,58 @@ td code {
     .table-wrap .status-pill, .table-wrap .healthy-badge { justify-self: start; width: fit-content; }
     .table-wrap .table-action { max-width: 100%; }
 }
+
+/* =========================================================
+   TABLET SHELL
+   Collapse the fixed sidebar before it leaves feature pages
+   with an unusably narrow content area.
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-area {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .main-area::before {
+    left: 0;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .mobile-overlay.visible {
+    display: block;
+  }
+
+  .content {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .content {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* Balanced tablet shell refinement */
+@media (min-width: 761px) and (max-width: 1024px) {
+  .content { padding: 22px 20px 12px; }
+  .topbar { padding-left: 20px; padding-right: 20px; }
+  .topbar-actions { min-width: 0; }
+  .management-intro { gap: 16px; }
+  .panel { min-width: 0; }
+  .panel-header { gap: 14px; }
+}

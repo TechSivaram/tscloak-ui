@@ -1303,3 +1303,13 @@ form .actions {
 }
 
 .security-breadcrumb{display:block;color:#263b33;font-size:15px;line-height:1.2;font-weight:450}
+
+/* Balanced tablet shell refinement */
+@media (min-width: 761px) and (max-width: 1024px) {
+  .content { padding: 22px 20px 12px; }
+  .topbar { padding-left: 20px; padding-right: 20px; }
+  .topbar-actions { min-width: 0; }
+  .management-intro { gap: 16px; }
+  .panel { min-width: 0; }
+  .panel-header { gap: 14px; }
+}

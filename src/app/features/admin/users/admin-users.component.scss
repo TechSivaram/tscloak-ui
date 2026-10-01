@@ -429,7 +429,7 @@ td:first-child {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .table-wrap {
     overflow: visible;
     padding: 0 16px 16px;
@@ -442,7 +442,8 @@ td:first-child {
     border-spacing: 0 12px;
   }
 
-  .table-wrap thead {
+  .table-wrap thead,
+  .table-wrap colgroup {
     display: none;
   }
 
@@ -552,5 +553,208 @@ td:first-child {
   .client-scope-control {
     width: 100%;
     justify-self: stretch;
+  }
+}
+
+@media (max-width: 900px) {
+  .management-intro,
+  .users-toolbar,
+  .toolbar { grid-template-columns: 1fr !important; }
+  .client-scope-control,
+  .management-intro select { width: 100%; max-width: none; min-width: 0; }
+}
+@media (max-width: 760px) {
+  .admin-form { grid-template-columns: 1fr !important; }
+  .form-actions { flex-wrap: wrap; }
+  .form-actions .button { flex: 0 0 auto; min-width: 140px; }
+  .role-picker,
+  .roles-picker,
+  .user-form-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  .form-actions { flex-direction: column; align-items: stretch; }
+  .form-actions .button { width: 100%; min-width: 0; flex: 0 0 auto; min-height: 42px; }
+}
+
+/* =========================================================
+   USERS — RESPONSIVE CONTENT-WIDTH BREAKPOINTS
+   The admin shell keeps a 250px sidebar until tablet/mobile
+   navigation takes over. Switch the Users page to stacked/card
+   layouts before the remaining content width becomes cramped.
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .management-intro {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .intro-create-button,
+  .client-scope-control {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .table-wrap {
+    overflow: visible;
+    padding: 0 16px 16px;
+  }
+
+  /*
+   * Do not keep table layout semantics once the table becomes cards.
+   * A real block layout prevents the browser's table intrinsic sizing
+   * from collapsing the card to the width of its narrowest column.
+   */
+  .table-wrap table,
+  .table-wrap tbody {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .table-wrap table {
+    table-layout: auto;
+    border-collapse: separate;
+  }
+
+  .table-wrap thead,
+  .table-wrap colgroup {
+    display: none;
+  }
+
+  .table-wrap tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .table-wrap tbody tr {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: 0 5px 15px rgba(16, 50, 22, .06);
+  }
+
+  .table-wrap tbody td {
+    display: grid;
+    grid-template-columns: minmax(72px, 88px) minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
+    padding: 7px 0;
+    border: 0;
+    gap: 10px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .table-wrap tbody td::before {
+    color: var(--light);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .65px;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .table-wrap tbody td:nth-child(1)::before { content: "Username"; }
+  .table-wrap tbody td:nth-child(2)::before { content: "Email"; }
+  .table-wrap tbody td:nth-child(3)::before { content: "Roles"; }
+  .table-wrap tbody td:nth-child(4)::before { content: "Status"; }
+  .table-wrap tbody td:nth-child(5)::before { content: "Created"; }
+  .table-wrap tbody td:nth-child(6)::before { content: "Actions"; }
+
+  .table-wrap tbody td:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 7px;
+    padding-top: 11px;
+    border-top: 1px solid var(--border);
+  }
+
+  .table-wrap tbody td:last-child::before {
+    margin-right: auto;
+  }
+
+  .table-wrap .role-picker,
+  .table-wrap .role-picker-button,
+  .table-wrap .role-picker-menu {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .table-wrap .role-picker-menu {
+    left: 0;
+    right: 0;
+  }
+
+  .table-wrap .status-pill {
+    justify-self: start;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .panel-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 520px) {
+  .management-intro {
+    padding: 18px 16px;
+  }
+
+  .users-panel {
+    margin-bottom: 14px;
+  }
+
+  .panel-header {
+    padding: 15px 16px;
+  }
+
+  .record-count {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .table-wrap {
+    padding: 0 10px 12px;
+  }
+
+  .table-wrap tbody tr {
+    padding: 12px;
+  }
+
+  .table-wrap tbody td {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .table-wrap tbody td::before {
+    display: block;
+  }
+
+  .table-wrap tbody td:last-child {
+    flex-wrap: wrap;
+    justify-content: stretch;
+  }
+
+  .table-wrap tbody td:last-child .text-button {
+    flex: 1 1 100%;
+    min-height: 38px;
+  }
+
+  .form-panel .admin-form,
+  .user-edit-panel .admin-form {
+    padding: 18px 16px 20px;
   }
 }

@@ -66,3 +66,114 @@ tbody tr:last-child td{border-bottom:0}
   .form-panel form{grid-template-columns:1fr}
   .actions{grid-column:auto}
 }
+
+@media (max-width: 900px) {
+  .hero { padding: 24px; }
+  .form-panel form { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 760px) {
+  .hero { padding: 20px 16px; }
+  .hero h2 { font-size: 24px; }
+  .panel-header { min-height: 0; padding: 14px 16px; gap: 12px; }
+  .panel-header > * { min-width: 0; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .actions .button { width: 100%; }
+}
+@media (max-width: 480px) {
+  .hero-action { width: 100%; }
+  .button { max-width: 100%; }
+}
+
+
+/* Responsive users table. */
+@media (max-width: 900px) {
+  .table-wrap { overflow:visible !important; padding:12px 12px 14px; width:100%; max-width:100%; }
+  .table-wrap table { width:100% !important; min-width:0 !important; border-collapse:separate; border-spacing:0 12px; }
+  .table-wrap thead { display:none; }
+  .table-wrap tbody { display:grid; gap:12px; }
+  .table-wrap tbody tr { display:block; padding:14px 15px; border:1px solid var(--border); border-radius:12px; background:var(--surface); box-shadow:0 5px 15px rgba(24,62,39,.06); }
+  .table-wrap tbody td { display:grid; grid-template-columns:minmax(78px,30%) minmax(0,1fr); gap:10px; width:100%; min-width:0; padding:7px 0; border:0; line-height:1.45; overflow-wrap:anywhere; word-break:break-word; }
+  .table-wrap tbody td::before { color:var(--light); font-size:9px; font-weight:850; letter-spacing:.6px; text-transform:uppercase; }
+  .table-wrap tbody td:nth-child(1)::before { content:'Username'; }
+  .table-wrap tbody td:nth-child(2)::before { content:'Email'; }
+  .table-wrap tbody td:nth-child(3)::before { content:'Roles'; }
+  .table-wrap tbody td:nth-child(4)::before { content:'Status'; }
+  .table-wrap tbody td:nth-child(5)::before { content:'Created'; }
+  .table-wrap tbody td:nth-child(6) { display:flex; align-items:center; justify-content:flex-end; gap:8px; margin-top:7px; padding-top:11px; border-top:1px solid var(--border); }
+  .table-wrap tbody td:nth-child(6)::before { content:'Actions'; margin-right:auto; }
+  .table-wrap tbody td[colspan] { display:block; padding:10px; text-align:center; }
+  .table-wrap tbody td[colspan]::before { display:none; }
+  .table-wrap .edit-button { min-width:0; max-width:100%; }
+}
+@media (max-width:420px) {
+  .table-wrap tbody td { grid-template-columns:1fr; gap:4px; }
+  .table-wrap tbody td:nth-child(6) { display:flex; }
+  .table-wrap tbody td:nth-child(6)::before { width:100%; margin-right:0; }
+  .table-wrap tbody td:nth-child(6) .button,
+  .table-wrap tbody td:nth-child(6) .outline-button { width:100%; }
+}
+
+/* Tablet card layout: Client users. */
+@media (max-width: 1024px) {
+  .table-wrap { overflow: visible !important; width: 100%; max-width: 100%; padding: 0 16px 18px; }
+  .table-wrap table { width: 100% !important; min-width: 0 !important; table-layout: auto !important; border-collapse: separate; border-spacing: 0 12px; }
+  .table-wrap thead { display: none; }
+  .table-wrap tbody { display: grid; gap: 12px; }
+  .table-wrap tbody tr {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: 0 5px 15px rgba(16, 50, 22, .06);
+  }
+  .table-wrap tbody td {
+    display: grid;
+    grid-template-columns: minmax(78px, 30%) minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    padding: 7px 0;
+    border: 0;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .table-wrap tbody td::before {
+    color: var(--light);
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: .6px;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+  .table-wrap tbody td:nth-child(1)::before { content: 'Username'; }
+  .table-wrap tbody td:nth-child(2)::before { content: 'Email'; }
+  .table-wrap tbody td:nth-child(3)::before { content: 'Roles'; }
+  .table-wrap tbody td:nth-child(4)::before { content: 'Status'; }
+  .table-wrap tbody td:nth-child(5)::before { content: 'Created'; }
+  .table-wrap tbody td:nth-child(6)::before { content: 'Actions'; }
+  .table-wrap tbody td:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 7px;
+    padding-top: 11px;
+    border-top: 1px solid var(--border);
+  }
+  .table-wrap tbody td:last-child::before { margin-right: auto; }
+  .table-wrap tbody td[colspan] { display: block; padding: 10px; text-align: center; }
+  .table-wrap tbody td[colspan]::before { display: none; }
+  .table-wrap code, .table-wrap a, .table-wrap span, .table-wrap button { max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
+  .table-wrap .button, .table-wrap .text-button, .table-wrap .edit-button { min-width: 0; }
+}
+
+@media (max-width: 560px) {
+  .table-wrap tbody td { grid-template-columns: 1fr; gap: 4px; }
+  .table-wrap tbody td:last-child { display: flex; }
+  .table-wrap tbody td:last-child::before { width: 100%; margin-right: 0; }
+}

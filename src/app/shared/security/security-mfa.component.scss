@@ -47,3 +47,26 @@
 .confirm-actions{flex-direction:column-reverse}
 .confirm-actions .button{width:100%}
 }
+
+@media (max-width: 900px) {
+  .security-intro { align-items: flex-start; flex-direction: column; }
+  .security-status { width: 100%; min-width: 0; }
+  .setup-grid { grid-template-columns: 190px minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .security-intro { padding: 22px 18px; }
+  .setup-grid { grid-template-columns: 1fr !important; }
+  .qr-card { width: 100%; max-width: 240px; }
+  .management-row { align-items: stretch; flex-direction: column; gap: 14px; }
+  .management-row .button { width: 100%; }
+  .recovery-codes { grid-template-columns: 1fr !important; max-width: none; }
+}
+@media (max-width: 480px) {
+  .security-panel { border-radius: 10px; }
+  .verify-row { flex-direction: column; }
+  .verify-row input,
+  .verify-row .button { width: 100%; }
+  .confirm-dialog { flex-direction: column; padding: 18px; }
+  .confirm-actions { flex-direction: column-reverse; align-items: stretch; }
+  .confirm-actions .button { width: 100%; }
+}
