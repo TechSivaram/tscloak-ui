@@ -84,7 +84,8 @@ The Angular implementation should reproduce the required behavior of the legacy 
 - [Goals](#-goals)
 - [Target architecture](#-target-architecture)
 - [Portal structure](#-portal-structure)
-- [Application Screenshots](#-application-screenshots)
+- [Application Screenshots](#application-screenshots)
+  - [Responsive UI Screenshots](#responsive-ui-screenshots)
 - [Application structure](#-application-structure)
 - [Authentication and request flow](#-authentication-and-request-flow)
 - [Legacy compatibility](#-legacy-compatibility)
@@ -238,6 +239,8 @@ The client ID remains available through the established session/client context f
 
 ---
 
+<a id="application-screenshots"></a>
+
 ## 🖥️ Application Screenshots
 
 The screenshots below cover the TSCloak Angular administration experience, shared authentication UI, OIDC flows, federation, security/MFA, and responsive views captured during development.
@@ -322,7 +325,9 @@ The screenshots below cover the TSCloak Angular administration experience, share
 
 </details>
 
-### Responsive UI
+<a id="responsive-ui-screenshots"></a>
+
+### 📱 Responsive UI Screenshots
 
 <details>
 <summary><strong>Responsive UI for mobiles</strong></summary>
