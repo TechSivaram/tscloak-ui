@@ -1,0 +1,11 @@
+# GitHub Linguist configuration for TSCloak Angular UI
+
+# Legacy reference files
+legacy-federation.html linguist-vendored
+legacy-federation.js   linguist-vendored
+legacy-federation.css  linguist-vendored
+
+# Generated files
+dist/** linguist-generated
+coverage/** linguist-generated
+.angular/** linguist-generated
