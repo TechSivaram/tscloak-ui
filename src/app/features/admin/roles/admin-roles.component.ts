@@ -125,11 +125,15 @@ export class AdminRolesComponent implements OnInit {
 
     try {
       await firstValueFrom(
-        this.http.put(`${API}/api/users/roles/${encodeURIComponent(role.id)}`, {
-          description: this.editForm.getRawValue().description.trim() || undefined,
-        }, {
-          headers: await this.authHeaders(),
-        }),
+        this.http.put(
+          `${API}/api/users/roles/${encodeURIComponent(role.id)}`,
+          {
+            description: this.editForm.getRawValue().description.trim() || undefined,
+          },
+          {
+            headers: await this.authHeaders(),
+          },
+        ),
       );
 
       this.editingRole.set(null);

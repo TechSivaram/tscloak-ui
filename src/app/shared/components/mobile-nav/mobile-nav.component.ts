@@ -14,14 +14,43 @@ import { Component, output, signal } from '@angular/core';
       ☰
     </button>
     @if (open()) {
-      <button class="mobile-overlay" type="button" aria-label="Close navigation" (click)="close()"></button>
+      <button
+        class="mobile-overlay"
+        type="button"
+        aria-label="Close navigation"
+        (click)="close()"
+      ></button>
     }
   `,
   styles: `
-    :host { display: contents; }
-    .menu-button { display: none; border: 0; background: transparent; color: inherit; font-size: 24px; line-height: 1; padding: 8px; cursor: pointer; }
-    .mobile-overlay { position: fixed; inset: 0; z-index: 90; width: 100%; height: 100%; padding: 0; border: 0; background: rgba(15,23,42,.45); }
-    @media (max-width: 760px) { .menu-button { display: block; } }
+    :host {
+      display: contents;
+    }
+    .menu-button {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-size: 24px;
+      line-height: 1;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: rgba(15, 23, 42, 0.45);
+    }
+    @media (max-width: 760px) {
+      .menu-button {
+        display: block;
+      }
+    }
   `,
 })
 export class MobileNavComponent {
@@ -29,7 +58,7 @@ export class MobileNavComponent {
   readonly open = signal(false);
 
   toggle(): void {
-    this.open.update(value => !value);
+    this.open.update((value) => !value);
     this.changed.emit(this.open());
   }
 

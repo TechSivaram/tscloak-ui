@@ -176,7 +176,10 @@ select {
   font: inherit;
   font-size: 12px;
   font-weight: 600;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
 }
 
 input:hover,
@@ -331,20 +334,48 @@ label small {
   .identity-grid,
   .redirect-grid,
   .capabilities-grid,
-  .interaction-grid { grid-template-columns: 1fr !important; }
+  .interaction-grid {
+    grid-template-columns: 1fr !important;
+  }
   .capabilities-grid label:last-child,
-  .interaction-grid label:last-child { grid-column: auto; }
+  .interaction-grid label:last-child {
+    grid-column: auto;
+  }
 }
 @media (max-width: 760px) {
-  .settings-hero { grid-template-columns: 1fr !important; padding: 20px 16px; }
-  .settings-section { padding: 18px 16px; }
-  .section-heading { flex-direction: column; gap: 6px; }
-  .auth-methods { grid-template-columns: 1fr !important; }
-  .settings-actions { flex-direction: column; align-items: stretch; }
-  .settings-actions p { width: 100%; }
-  .settings-actions .button { width: 100%; }
+  .settings-hero {
+    grid-template-columns: 1fr !important;
+    padding: 20px 16px;
+  }
+  .settings-section {
+    padding: 18px 16px;
+  }
+  .section-heading {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-methods {
+    grid-template-columns: 1fr !important;
+  }
+  .settings-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .settings-actions p {
+    width: 100%;
+  }
+  .settings-actions .button {
+    width: 100%;
+  }
 }
 @media (max-width: 480px) {
-  .settings-section { border-radius: 10px; }
-  input, textarea, select { min-width: 0; max-width: 100%; }
+  .settings-section {
+    border-radius: 10px;
+  }
+  input,
+  textarea,
+  select {
+    min-width: 0;
+    max-width: 100%;
+  }
 }

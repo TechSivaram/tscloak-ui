@@ -131,8 +131,8 @@ export class AdminUsersComponent implements OnInit {
         ),
       ]);
 
-      const users = usersResult.status === 'fulfilled' ? usersResult.value ?? [] : null;
-      const roles = rolesResult.status === 'fulfilled' ? rolesResult.value ?? [] : null;
+      const users = usersResult.status === 'fulfilled' ? (usersResult.value ?? []) : null;
+      const roles = rolesResult.status === 'fulfilled' ? (rolesResult.value ?? []) : null;
 
       if (users === null || roles === null) {
         console.error('Unable to load users or roles:', { usersResult, rolesResult });
@@ -279,11 +279,9 @@ export class AdminUsersComponent implements OnInit {
       const query = clientId ? `?client_id=${encodeURIComponent(clientId)}` : '';
 
       await firstValueFrom(
-        this.http.put(
-          `${API}/api/users/${encodeURIComponent(user.id)}${query}`,
-          parsed.data,
-          { headers: await this.authHeaders() },
-        ),
+        this.http.put(`${API}/api/users/${encodeURIComponent(user.id)}${query}`, parsed.data, {
+          headers: await this.authHeaders(),
+        }),
       );
 
       this.showMessage('User updated.');

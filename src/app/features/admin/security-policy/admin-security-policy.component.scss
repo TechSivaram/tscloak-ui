@@ -1,11 +1,120 @@
-:host{display:block}.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.panel-header{min-height:72px;padding:17px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid var(--border);background:linear-gradient(100deg,rgba(19,136,8,.035),rgba(255,255,255,0) 68%)}.panel-header h3{margin:0;color:var(--text);font-size:15px}.eyebrow{margin:0 0 6px;color:var(--green);font-size:10px;font-weight:800;letter-spacing:.9px;text-transform:uppercase}.text-button{border:0;background:transparent;color:var(--green);font-size:11px;font-weight:700;text-decoration:none;cursor:pointer}.admin-form{max-width:680px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:24px 22px 26px}.admin-form label{display:grid;gap:7px;color:var(--muted);font-size:12px;font-weight:700}.admin-form input{width:100%;min-height:42px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font:inherit}.admin-form input:focus{outline:2px solid rgba(19,136,8,.2);border-color:var(--primary);box-shadow:0 0 0 3px rgba(19,136,8,.08)}.admin-form label:nth-last-of-type(1),.admin-form .button,.admin-form [data-message]{grid-column:1/-1}.admin-form .button{justify-self:start;min-height:39px;padding:0 16px;border:0;border-radius:8px;background:var(--green);color:#fff;font-size:12px;font-weight:650;cursor:pointer;box-shadow:0 4px 10px rgba(19,136,8,.18)}.admin-form .button:disabled{opacity:.6}.admin-form [data-message]{min-height:20px;margin:0;color:var(--success);font-weight:700}@media(max-width:760px){.admin-form{grid-template-columns:1fr}}
+:host {
+  display: block;
+}
+.panel {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.panel-header {
+  min-height: 72px;
+  padding: 17px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(100deg, rgba(19, 136, 8, 0.035), rgba(255, 255, 255, 0) 68%);
+}
+.panel-header h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+}
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+.text-button {
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.admin-form {
+  max-width: 680px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 24px 22px 26px;
+}
+.admin-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.admin-form input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+.admin-form input:focus {
+  outline: 2px solid rgba(19, 136, 8, 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(19, 136, 8, 0.08);
+}
+.admin-form label:nth-last-of-type(1),
+.admin-form .button,
+.admin-form [data-message] {
+  grid-column: 1/-1;
+}
+.admin-form .button {
+  justify-self: start;
+  min-height: 39px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--green);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(19, 136, 8, 0.18);
+}
+.admin-form .button:disabled {
+  opacity: 0.6;
+}
+.admin-form [data-message] {
+  min-height: 20px;
+  margin: 0;
+  color: var(--success);
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media (max-width: 760px) {
-  .admin-form { grid-template-columns: 1fr !important; max-width: none; padding: 20px 16px 22px; }
+  .admin-form {
+    grid-template-columns: 1fr !important;
+    max-width: none;
+    padding: 20px 16px 22px;
+  }
   .admin-form label:nth-last-of-type(1),
   .admin-form .button,
-  .admin-form [data-message] { grid-column: auto; }
+  .admin-form [data-message] {
+    grid-column: auto;
+  }
 }
 @media (max-width: 480px) {
-  .panel-header { padding: 14px 16px; }
+  .panel-header {
+    padding: 14px 16px;
+  }
 }

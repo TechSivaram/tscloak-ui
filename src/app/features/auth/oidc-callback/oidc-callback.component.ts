@@ -27,9 +27,7 @@ export class OidcCallbackComponent implements OnInit {
     }
 
     const routePortal = this.route.snapshot.data['portal'];
-    return routePortal === 'idp-admin' || routePortal === 'idp-client-admin'
-      ? routePortal
-      : null;
+    return routePortal === 'idp-admin' || routePortal === 'idp-client-admin' ? routePortal : null;
   }
 
   async ngOnInit(): Promise<void> {
@@ -47,9 +45,7 @@ export class OidcCallbackComponent implements OnInit {
       });
     } catch (error) {
       this.error = true;
-      this.status = error instanceof Error
-        ? error.message
-        : 'Unable to complete authentication.';
+      this.status = error instanceof Error ? error.message : 'Unable to complete authentication.';
     }
   }
 }

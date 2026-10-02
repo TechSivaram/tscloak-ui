@@ -1,13 +1,103 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PortalApiService } from '../../core/api/portal-api.service';
-@Component({selector:'app-security-mfa',standalone:true,imports:[FormsModule],templateUrl:'./security-mfa.component.html',styleUrl:'./security-mfa.component.scss'})
-export class SecurityMfaComponent{
- private readonly api=inject(PortalApiService); readonly enabled=signal(false);readonly method=signal('');readonly setup=signal(false);readonly recovery=signal<string[]>([]);readonly qr=signal('');readonly secret=signal('');readonly uri=signal('');readonly message=signal('');readonly error=signal('');readonly confirm=signal<'disable'|'regenerate'|null>(null);code='';confirmCode='';
- constructor(){void this.load()}
- async load(){const r=await this.api.request<any>('/api/mfa/status');if(r.ok&&r.data){this.enabled.set(!!r.data.enabled);this.method.set(r.data.method||'');}}
- async enroll(){this.message.set('Preparing MFA setup…');const r=await this.api.request<any>('/api/mfa/enroll',{method:'POST'});if(!r.ok||!r.data){this.error.set('Unable to start MFA enrollment.');return}this.qr.set(r.data.qrCode||'');this.secret.set(r.data.secret||'—');this.uri.set(r.data.otpauthUri||'');this.setup.set(true);this.error.set('')}
- async verify(){if(!/^\d{6}$/.test(this.code)){this.error.set('Enter the 6-digit code from your authenticator app.');return}const r=await this.api.request<any>('/api/mfa/enroll/verify',{method:'POST',body:{code:this.code}});if(!r.ok||!r.data){this.error.set((r.data as any)?.message||'Invalid MFA verification code.');return}this.recovery.set(r.data.recoveryCodes||[]);this.enabled.set(true);this.method.set(r.data.method||'totp');this.setup.set(false);this.message.set('MFA enabled. Save your recovery codes somewhere secure.');this.code=''}
- async copy(text:string){try{await navigator.clipboard.writeText(text);this.message.set('Copied to clipboard.')}catch{this.error.set('Unable to copy to clipboard.')}}
- async proceed(){if(!/^\d{6}$/.test(this.confirmCode)){this.error.set('Enter the 6-digit code from your authenticator app.');return}const action=this.confirm();const path=action==='disable'?'/api/mfa/disable':'/api/mfa/recovery-codes/regenerate';const r=await this.api.request<any>(path,{method:'POST',body:{code:this.confirmCode}});if(!r.ok||!r.data){this.error.set((r.data as any)?.message||`Unable to ${action}.`);return}if(action==='disable'){this.enabled.set(false);this.recovery.set([]);this.message.set('MFA has been disabled.')}else{this.recovery.set(r.data.recoveryCodes||[]);this.message.set('New recovery codes generated. Your previous codes are no longer valid.')}this.confirm.set(null);this.confirmCode='';this.error.set('')}
+@Component({
+  selector: 'app-security-mfa',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './security-mfa.component.html',
+  styleUrl: './security-mfa.component.scss',
+})
+export class SecurityMfaComponent {
+  private readonly api = inject(PortalApiService);
+  readonly enabled = signal(false);
+  readonly method = signal('');
+  readonly setup = signal(false);
+  readonly recovery = signal<string[]>([]);
+  readonly qr = signal('');
+  readonly secret = signal('');
+  readonly uri = signal('');
+  readonly message = signal('');
+  readonly error = signal('');
+  readonly confirm = signal<'disable' | 'regenerate' | null>(null);
+  code = '';
+  confirmCode = '';
+  constructor() {
+    void this.load();
+  }
+  async load() {
+    const r = await this.api.request<any>('/api/mfa/status');
+    if (r.ok && r.data) {
+      this.enabled.set(!!r.data.enabled);
+      this.method.set(r.data.method || '');
+    }
+  }
+  async enroll() {
+    this.message.set('Preparing MFA setup…');
+    const r = await this.api.request<any>('/api/mfa/enroll', { method: 'POST' });
+    if (!r.ok || !r.data) {
+      this.error.set('Unable to start MFA enrollment.');
+      return;
+    }
+    this.qr.set(r.data.qrCode || '');
+    this.secret.set(r.data.secret || '—');
+    this.uri.set(r.data.otpauthUri || '');
+    this.setup.set(true);
+    this.error.set('');
+  }
+  async verify() {
+    if (!/^\d{6}$/.test(this.code)) {
+      this.error.set('Enter the 6-digit code from your authenticator app.');
+      return;
+    }
+    const r = await this.api.request<any>('/api/mfa/enroll/verify', {
+      method: 'POST',
+      body: { code: this.code },
+    });
+    if (!r.ok || !r.data) {
+      this.error.set((r.data as any)?.message || 'Invalid MFA verification code.');
+      return;
+    }
+    this.recovery.set(r.data.recoveryCodes || []);
+    this.enabled.set(true);
+    this.method.set(r.data.method || 'totp');
+    this.setup.set(false);
+    this.message.set('MFA enabled. Save your recovery codes somewhere secure.');
+    this.code = '';
+  }
+  async copy(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      this.message.set('Copied to clipboard.');
+    } catch {
+      this.error.set('Unable to copy to clipboard.');
+    }
+  }
+  async proceed() {
+    if (!/^\d{6}$/.test(this.confirmCode)) {
+      this.error.set('Enter the 6-digit code from your authenticator app.');
+      return;
+    }
+    const action = this.confirm();
+    const path = action === 'disable' ? '/api/mfa/disable' : '/api/mfa/recovery-codes/regenerate';
+    const r = await this.api.request<any>(path, {
+      method: 'POST',
+      body: { code: this.confirmCode },
+    });
+    if (!r.ok || !r.data) {
+      this.error.set((r.data as any)?.message || `Unable to ${action}.`);
+      return;
+    }
+    if (action === 'disable') {
+      this.enabled.set(false);
+      this.recovery.set([]);
+      this.message.set('MFA has been disabled.');
+    } else {
+      this.recovery.set(r.data.recoveryCodes || []);
+      this.message.set('New recovery codes generated. Your previous codes are no longer valid.');
+    }
+    this.confirm.set(null);
+    this.confirmCode = '';
+    this.error.set('');
+  }
 }

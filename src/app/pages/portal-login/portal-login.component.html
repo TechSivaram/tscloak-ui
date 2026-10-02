@@ -1,2 +1,20 @@
-<main class="login-shell"><section class="login-card"><img src="assets/tscloak-icon.png" alt="TSCloak"><h1>TSCloak</h1><p class="portal-title">{{ isClient ? 'Client Administration' : 'Administration Portal' }}</p><p>{{ isClient ? 'Manage users and access for your client.' : 'Manage your identity platform, applications and users.' }}</p><button type="button" [disabled]="loading" (click)="signIn()">{{ loading ? 'Redirecting…' : 'Sign in' }}</button>
-@if (error) { <p class="login-error" role="alert">{{ error }}</p> }</section></main>
+<main class="login-shell">
+  <section class="login-card">
+    <img src="assets/tscloak-icon.png" alt="TSCloak" />
+    <h1>TSCloak</h1>
+    <p class="portal-title">{{ isClient ? 'Client Administration' : 'Administration Portal' }}</p>
+    <p>
+      {{
+        isClient
+          ? 'Manage users and access for your client.'
+          : 'Manage your identity platform, applications and users.'
+      }}
+    </p>
+    <button type="button" [disabled]="loading" (click)="signIn()">
+      {{ loading ? 'Redirecting…' : 'Sign in' }}
+    </button>
+    @if (error) {
+      <p class="login-error" role="alert">{{ error }}</p>
+    }
+  </section>
+</main>

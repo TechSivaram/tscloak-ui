@@ -1,3 +1,71 @@
-<section class="client-welcome"><div><span class="eyebrow">Your client workspace</span><h2>{{ clientName() }}</h2><p>Manage the users, roles, and application settings belonging to this client.</p></div><div class="welcome-actions"><a class="primary" [routerLink]="['/idp-client-admin', 'users']">Manage users</a><a class="secondary" [routerLink]="['/idp-client-admin', 'settings']">Client settings</a></div></section>
-<section class="client-stats"><a [routerLink]="['/idp-client-admin', 'users']"><div class="stat-icon">♙</div><div><span>Client users</span><strong>{{ userCount() }}</strong><small>Identities managed in this workspace</small></div></a><a [routerLink]="['/idp-client-admin', 'settings']"><div class="stat-icon settings-icon">⚙</div><div><span>Application status</span><strong>Active</strong><small>Configuration and redirect settings</small></div></a></section>
-<section class="client-grid"><article class="client-panel"><div class="panel-heading"><div><span class="eyebrow">Workspace</span><h3>Common actions</h3></div></div><div class="action-list"><a [routerLink]="['/idp-client-admin', 'users']"><span class="action-icon">♙</span><span><strong>Manage users</strong><small>Create users, edit status, and assign roles</small></span><b>›</b></a><a [routerLink]="['/idp-client-admin', 'settings']"><span class="action-icon">⚙</span><span><strong>Update client settings</strong><small>Maintain redirect and OAuth configuration</small></span><b>›</b></a><a [routerLink]="['/idp-client-admin', 'profile']"><span class="action-icon">◎</span><span><strong>View profile</strong><small>Review your authenticated administrator account</small></span><b>›</b></a></div></article><article class="client-panel context-panel"><div class="panel-heading"><div><span class="eyebrow">Access boundary</span><h3>Client-scoped access</h3></div><span class="status-badge">Protected</span></div><p>Your account can manage resources belonging to its authenticated client. Client identity, secret, ownership, and enabled state remain protected.</p><a class="text-link" [routerLink]="['/idp-client-admin', 'profile']">View account details →</a></article></section>
+<section class="client-welcome">
+  <div>
+    <span class="eyebrow">Your client workspace</span>
+    <h2>{{ clientName() }}</h2>
+    <p>Manage the users, roles, and application settings belonging to this client.</p>
+  </div>
+  <div class="welcome-actions">
+    <a class="primary" [routerLink]="['/idp-client-admin', 'users']">Manage users</a
+    ><a class="secondary" [routerLink]="['/idp-client-admin', 'settings']">Client settings</a>
+  </div>
+</section>
+<section class="client-stats">
+  <a [routerLink]="['/idp-client-admin', 'users']"
+    ><div class="stat-icon">♙</div>
+    <div>
+      <span>Client users</span><strong>{{ userCount() }}</strong
+      ><small>Identities managed in this workspace</small>
+    </div></a
+  ><a [routerLink]="['/idp-client-admin', 'settings']"
+    ><div class="stat-icon settings-icon">⚙</div>
+    <div>
+      <span>Application status</span><strong>Active</strong
+      ><small>Configuration and redirect settings</small>
+    </div></a
+  >
+</section>
+<section class="client-grid">
+  <article class="client-panel">
+    <div class="panel-heading">
+      <div>
+        <span class="eyebrow">Workspace</span>
+        <h3>Common actions</h3>
+      </div>
+    </div>
+    <div class="action-list">
+      <a [routerLink]="['/idp-client-admin', 'users']"
+        ><span class="action-icon">♙</span
+        ><span
+          ><strong>Manage users</strong
+          ><small>Create users, edit status, and assign roles</small></span
+        ><b>›</b></a
+      ><a [routerLink]="['/idp-client-admin', 'settings']"
+        ><span class="action-icon">⚙</span
+        ><span
+          ><strong>Update client settings</strong
+          ><small>Maintain redirect and OAuth configuration</small></span
+        ><b>›</b></a
+      ><a [routerLink]="['/idp-client-admin', 'profile']"
+        ><span class="action-icon">◎</span
+        ><span
+          ><strong>View profile</strong
+          ><small>Review your authenticated administrator account</small></span
+        ><b>›</b></a
+      >
+    </div>
+  </article>
+  <article class="client-panel context-panel">
+    <div class="panel-heading">
+      <div>
+        <span class="eyebrow">Access boundary</span>
+        <h3>Client-scoped access</h3>
+      </div>
+      <span class="status-badge">Protected</span>
+    </div>
+    <p>
+      Your account can manage resources belonging to its authenticated client. Client identity,
+      secret, ownership, and enabled state remain protected.
+    </p>
+    <a class="text-link" [routerLink]="['/idp-client-admin', 'profile']">View account details →</a>
+  </article>
+</section>

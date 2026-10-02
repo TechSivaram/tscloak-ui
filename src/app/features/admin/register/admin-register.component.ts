@@ -1,5 +1,98 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
-@Component({selector:'app-admin-register',standalone:true,imports:[FormsModule],templateUrl:'./admin-register.component.html',styleUrl:'./admin-register.component.scss'})
-export class AdminRegisterComponent{readonly token=new URLSearchParams(location.search).get('initial_access_token')||new URLSearchParams(location.search).get('token')||'';readonly done=signal(false);readonly error=signal('');readonly result=signal('');readonly busy=signal(false);form:any={client_name:'',redirect_uris:'',post_logout_redirect_uris:'',scope:'openid profile email roles',grant_types:'authorization_code refresh_token',response_types:'code',auth:['none'],jwks_uri:'',interaction_mode:'hosted',interaction_login_url:'',interaction_consent_url:''};toggle(v:string,e:any){const a=this.form.auth as string[];if(e.target.checked){if(!a.includes(v))a.push(v)}else this.form.auth=a.filter(x=>x!==v)}async submit(){this.error.set('');if(!this.token){this.error.set('This registration link is missing its initial access token.');return}if(this.form.auth.includes('private_key_jwt')&&!this.form.jwks_uri){this.error.set('Enter a public JWKS URL to use private key JWT.');return}this.busy.set(true);const list=(v:string)=>String(v||'').split(/\s*,\s*|\s*\r?\n\s*|\s+/).map(x=>x.trim()).filter(Boolean);try{const r=await fetch(`${environment.idp.url}/reg`,{method:'POST',headers:{Authorization:`Bearer ${this.token}`,'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({client_name:this.form.client_name,redirect_uris:list(this.form.redirect_uris),post_logout_redirect_uris:list(this.form.post_logout_redirect_uris),scope:this.form.scope,grant_types:list(this.form.grant_types),response_types:list(this.form.response_types),token_endpoint_auth_methods:this.form.auth,token_endpoint_auth_method:this.form.auth.includes('private_key_jwt')?'private_key_jwt':this.form.auth.includes('client_secret_jwt')?'client_secret_jwt':this.form.auth.includes('client_secret_basic')?'client_secret_basic':this.form.auth.includes('client_secret_post')?'client_secret_post':'none',jwks_uri:this.form.jwks_uri||undefined,interaction_mode:this.form.interaction_mode,interaction_login_url:this.form.interaction_login_url||undefined,interaction_consent_url:this.form.interaction_consent_url||undefined})});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error_description||data.error||'Registration failed');this.result.set(`Application registered.\n\nClient ID: ${data.client_id||'provided by the provider'}\n\nClient Administration URL:\n${location.origin}/idp-client-admin/${encodeURIComponent(data.client_id||'')}\n\n${data.client_secret?`Client secret: ${data.client_secret}\n\n`:''}Save these credentials securely.`);this.done.set(true)}catch(e:any){this.error.set(e?.message||'Registration failed')}finally{this.busy.set(false)}}}
+@Component({
+  selector: 'app-admin-register',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './admin-register.component.html',
+  styleUrl: './admin-register.component.scss',
+})
+export class AdminRegisterComponent {
+  readonly token =
+    new URLSearchParams(location.search).get('initial_access_token') ||
+    new URLSearchParams(location.search).get('token') ||
+    '';
+  readonly done = signal(false);
+  readonly error = signal('');
+  readonly result = signal('');
+  readonly busy = signal(false);
+  form: any = {
+    client_name: '',
+    redirect_uris: '',
+    post_logout_redirect_uris: '',
+    scope: 'openid profile email roles',
+    grant_types: 'authorization_code refresh_token',
+    response_types: 'code',
+    auth: ['none'],
+    jwks_uri: '',
+    interaction_mode: 'hosted',
+    interaction_login_url: '',
+    interaction_consent_url: '',
+  };
+  toggle(v: string, e: any) {
+    const a = this.form.auth as string[];
+    if (e.target.checked) {
+      if (!a.includes(v)) a.push(v);
+    } else this.form.auth = a.filter((x) => x !== v);
+  }
+  async submit() {
+    this.error.set('');
+    if (!this.token) {
+      this.error.set('This registration link is missing its initial access token.');
+      return;
+    }
+    if (this.form.auth.includes('private_key_jwt') && !this.form.jwks_uri) {
+      this.error.set('Enter a public JWKS URL to use private key JWT.');
+      return;
+    }
+    this.busy.set(true);
+    const list = (v: string) =>
+      String(v || '')
+        .split(/\s*,\s*|\s*\r?\n\s*|\s+/)
+        .map((x) => x.trim())
+        .filter(Boolean);
+    try {
+      const r = await fetch(`${environment.idp.url}/reg`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          client_name: this.form.client_name,
+          redirect_uris: list(this.form.redirect_uris),
+          post_logout_redirect_uris: list(this.form.post_logout_redirect_uris),
+          scope: this.form.scope,
+          grant_types: list(this.form.grant_types),
+          response_types: list(this.form.response_types),
+          token_endpoint_auth_methods: this.form.auth,
+          token_endpoint_auth_method: this.form.auth.includes('private_key_jwt')
+            ? 'private_key_jwt'
+            : this.form.auth.includes('client_secret_jwt')
+              ? 'client_secret_jwt'
+              : this.form.auth.includes('client_secret_basic')
+                ? 'client_secret_basic'
+                : this.form.auth.includes('client_secret_post')
+                  ? 'client_secret_post'
+                  : 'none',
+          jwks_uri: this.form.jwks_uri || undefined,
+          interaction_mode: this.form.interaction_mode,
+          interaction_login_url: this.form.interaction_login_url || undefined,
+          interaction_consent_url: this.form.interaction_consent_url || undefined,
+        }),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.error_description || data.error || 'Registration failed');
+      this.result.set(
+        `Application registered.\n\nClient ID: ${data.client_id || 'provided by the provider'}\n\nClient Administration URL:\n${location.origin}/idp-client-admin/${encodeURIComponent(data.client_id || '')}\n\n${data.client_secret ? `Client secret: ${data.client_secret}\n\n` : ''}Save these credentials securely.`,
+      );
+      this.done.set(true);
+    } catch (e: any) {
+      this.error.set(e?.message || 'Registration failed');
+    } finally {
+      this.busy.set(false);
+    }
+  }
+}

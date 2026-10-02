@@ -59,8 +59,6 @@ export class ProfileComponent {
     return this.client() ? '/idp-client-admin/dashboard' : '/idp-admin/dashboard';
   }
 
-
-
   constructor() {
     void this.load();
   }
@@ -111,20 +109,27 @@ export class ProfileComponent {
     const parsed = changePasswordSchema.safeParse(values);
 
     if (!parsed.success) {
-      this.passwordError.set(parsed.error.issues[0]?.message ?? 'Please check the password fields.');
+      this.passwordError.set(
+        parsed.error.issues[0]?.message ?? 'Please check the password fields.',
+      );
       return;
     }
 
     this.savingPassword.set(true);
 
     try {
-      const response = await this.api.request<{ message?: string }>('/api/account/change-password', {
-        method: 'POST',
-        body: parsed.data,
-      });
+      const response = await this.api.request<{ message?: string }>(
+        '/api/account/change-password',
+        {
+          method: 'POST',
+          body: parsed.data,
+        },
+      );
 
       if (!response.ok) {
-        this.passwordError.set(this.getApiError(response.data) || this.passwordErrorForStatus(response.status));
+        this.passwordError.set(
+          this.getApiError(response.data) || this.passwordErrorForStatus(response.status),
+        );
         return;
       }
 

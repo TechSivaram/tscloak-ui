@@ -1,3 +1,38 @@
-import { Component, inject, signal } from '@angular/core';import { PortalApiService } from '../../../core/api/portal-api.service';
-interface Provider{id:string;name:string;type:string;availableGlobally:boolean;enabled:boolean}
-@Component({selector:'app-client-federation',standalone:true,templateUrl:'./client-federation.component.html',styleUrl:'./client-federation.component.scss'})export class ClientFederationComponent{private readonly api=inject(PortalApiService);readonly providers=signal<Provider[]>([]);readonly message=signal('');constructor(){void this.load()}async load(){const r=await this.api.request<Provider[]>('/api/federation/client/providers');this.providers.set(r.ok&&r.data?r.data:[])}async toggle(p:Provider){if(!p.availableGlobally)return;const r=await this.api.request(`/api/federation/client/providers/${encodeURIComponent(p.id)}`,{method:'PATCH',body:{enabled:!p.enabled}});if(r.ok){this.message.set('Provider availability updated for this client.');await this.load()}else this.message.set('Unable to update provider availability.')}}
+import { Component, inject, signal } from '@angular/core';
+import { PortalApiService } from '../../../core/api/portal-api.service';
+interface Provider {
+  id: string;
+  name: string;
+  type: string;
+  availableGlobally: boolean;
+  enabled: boolean;
+}
+@Component({
+  selector: 'app-client-federation',
+  standalone: true,
+  templateUrl: './client-federation.component.html',
+  styleUrl: './client-federation.component.scss',
+})
+export class ClientFederationComponent {
+  private readonly api = inject(PortalApiService);
+  readonly providers = signal<Provider[]>([]);
+  readonly message = signal('');
+  constructor() {
+    void this.load();
+  }
+  async load() {
+    const r = await this.api.request<Provider[]>('/api/federation/client/providers');
+    this.providers.set(r.ok && r.data ? r.data : []);
+  }
+  async toggle(p: Provider) {
+    if (!p.availableGlobally) return;
+    const r = await this.api.request(
+      `/api/federation/client/providers/${encodeURIComponent(p.id)}`,
+      { method: 'PATCH', body: { enabled: !p.enabled } },
+    );
+    if (r.ok) {
+      this.message.set('Provider availability updated for this client.');
+      await this.load();
+    } else this.message.set('Unable to update provider availability.');
+  }
+}
