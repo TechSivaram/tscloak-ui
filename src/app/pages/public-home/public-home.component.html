@@ -13,8 +13,11 @@
     </nav>
 
     <div class="nav-actions">
-      <a href="/docs" class="btn btn-secondary">Documentation</a>
-      <a href="/.well-known/openid-configuration" class="btn btn-primary">OpenID Connect</a>
+      <a [href]="idpUrl + '/docs'" class="btn btn-secondary"> Documentation </a>
+
+      <a [href]="idpUrl + '/.well-known/openid-configuration'" class="btn btn-primary">
+        OpenID Connect
+      </a>
     </div>
   </div>
 </header>
@@ -36,8 +39,12 @@
         </p>
 
         <div class="hero-actions">
-          <a href="/docs" class="btn btn-primary btn-large">Explore API</a>
-          <a href="/.well-known/openid-configuration" class="btn btn-secondary btn-large">
+          <a [href]="idpUrl + '/docs'" class="btn btn-primary btn-large"> Explore API </a>
+
+          <a
+            [href]="idpUrl + '/.well-known/openid-configuration'"
+            class="btn btn-secondary btn-large"
+          >
             OpenID Discovery
           </a>
         </div>
@@ -58,10 +65,9 @@
   <section class="standards">
     <div class="container standards-container">
       <div class="standards-title">BUILT ON OPEN STANDARDS</div>
+
       <div class="standards-list">
-        <span>OAuth 2.0</span><i>•</i>
-        <span>OpenID Connect</span><i>•</i>
-        <span>JWT</span><i>•</i>
+        <span>OAuth 2.0</span><i>•</i> <span>OpenID Connect</span><i>•</i> <span>JWT</span><i>•</i>
         <span>JWKS</span><i>•</i>
         <span>PKCE</span>
       </div>
@@ -72,7 +78,9 @@
     <div class="container">
       <div class="section-header">
         <span class="section-label">FEATURES</span>
+
         <h2>Identity infrastructure you can trust.</h2>
+
         <p>Everything you need to manage authentication, authorization, and secure access.</p>
       </div>
 
@@ -102,7 +110,9 @@
     <div class="container">
       <div class="section-header">
         <span class="section-label">ARCHITECTURE</span>
+
         <h2>Built for modern applications.</h2>
+
         <p>A clean architecture designed for scalable authentication and authorization services.</p>
       </div>
 
@@ -129,18 +139,24 @@
     <div class="container security-container">
       <div>
         <span class="section-label">SECURITY</span>
+
         <h2>Security by design.</h2>
+
         <p>
-          Identity systems are the foundation of application security. TSCloak is designed
-          around modern authentication and authorization standards.
+          Identity systems are the foundation of application security. TSCloak is designed around
+          modern authentication and authorization standards.
         </p>
       </div>
 
       <div class="security-list">
         <div class="security-item"><span>✓</span>OAuth 2.0 Authorization</div>
+
         <div class="security-item"><span>✓</span>OpenID Connect Authentication</div>
+
         <div class="security-item"><span>✓</span>JWT Token Support</div>
+
         <div class="security-item"><span>✓</span>JWKS Key Distribution</div>
+
         <div class="security-item"><span>✓</span>PKCE Support</div>
       </div>
     </div>
@@ -150,8 +166,12 @@
     <div class="container">
       <div class="developers-content">
         <span class="section-label">DEVELOPERS</span>
+
         <h2>Built for developers.</h2>
-        <p>Integrate secure identity into your applications using open standards and simple APIs.</p>
+
+        <p>
+          Integrate secure identity into your applications using open standards and simple APIs.
+        </p>
 
         <div class="developer-actions">
           <a
@@ -191,10 +211,21 @@
     </div>
 
     <div class="footer-links">
-      <a href="https://github.com/TechSivaram/tscloak" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/posts/techsivaram_tscloak-is-an-open-source-identity-and-access-activity-7501192965688549376-jY5O?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAAdl2ugBP5jBxkwQsXoo5zdDAIO252HZQs8" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="/docs">Documentation</a>
-      <a href="/.well-known/openid-configuration">OpenID Discovery</a>
+      <a [href]="idpUrl + '/docs'">Documentation</a>
+
+      <a [href]="idpUrl + '/.well-known/openid-configuration'"> OpenID Discovery </a>
+
+      <a href="https://github.com/TechSivaram/tscloak" target="_blank" rel="noopener noreferrer">
+        GitHub
+      </a>
+
+      <a
+        href="https://www.linkedin.com/posts/techsivaram_tscloak-is-an-open-source-identity-and-access-activity-7501192965688549376-jY5O?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAAdl2ugBP5jBxkwQsXoo5zdDAIO252HZQs8"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
+      </a>
     </div>
   </div>
 
