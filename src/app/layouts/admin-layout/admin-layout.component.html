@@ -59,7 +59,7 @@
           ♢<i aria-hidden="true"></i>
         </button>
 
-        <div class="profile role-tooltip" [attr.data-role-tooltip]="fullRoles()">
+        <div class="profile role-tooltip" [class.menu-open]="profileMenuOpen()" [attr.data-role-tooltip]="fullRoles()">
           <div class="avatar" aria-label="User roles">
             <img class="avatar-image" [src]="avatarUrl()" alt="" [hidden]="!avatarUrl()" (error)="avatarUrl.set(null)">
             <span class="avatar-fallback" [hidden]="!!avatarUrl()">{{ initials() }}</span>

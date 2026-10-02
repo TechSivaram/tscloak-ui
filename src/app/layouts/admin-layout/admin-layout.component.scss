@@ -485,6 +485,14 @@ button {
     box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
 }
 
+.profile.role-tooltip.menu-open::after,
+.profile.role-tooltip.menu-open:hover::after,
+.profile.role-tooltip.menu-open:focus-within::after {
+    opacity: 0 !important;
+    visibility: hidden;
+    transform: translate(-50%, -3px);
+}
+
 .profile.role-tooltip:hover::after,
 .profile.role-tooltip:focus-within::after {
     opacity: 1;
@@ -536,7 +544,7 @@ button {
 
     box-shadow: var(--shadow);
 
-    z-index: 50;
+    z-index: 150;
 }
 
 .profile-menu.open {
