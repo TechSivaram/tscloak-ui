@@ -1,388 +1,202 @@
 :host {
-
   display: block;
-
   min-height: 100vh;
-
   background: linear-gradient(135deg, #edf7eb, #f5f8f5 55%, #fff4e8);
-
 }
-
 .registration-shell {
-
   min-height: 100vh;
-
   padding: 36px 18px;
-
   display: grid;
-
   place-items: center;
-
 }
-
 .registration-card {
-
   width: min(720px, 100%);
-
   padding: 32px;
-
   border: 1px solid #dfe8e0;
-
   border-radius: 16px;
-
   background: #fff;
-
   box-shadow: 0 16px 45px rgba(23, 53, 29, 0.12);
-
 }
-
 .registration-brand {
-
   display: flex;
-
   align-items: center;
-
   gap: 10px;
-
   margin-bottom: 30px;
-
   color: #138808;
-
   font-size: 18px;
-
   font-weight: 800;
-
 }
-
 .registration-brand img {
-
   width: 34px;
-
   height: 34px;
-
   object-fit: contain;
-
 }
-
 .eyebrow {
-
   margin: 0 0 7px;
-
   color: #138808;
-
   font-size: 11px;
-
   font-weight: 800;
-
   letter-spacing: 0.9px;
-
   text-transform: uppercase;
-
 }
-
 h1 {
-
   margin: 0;
-
   font-size: 30px;
-
 }
-
 .intro {
-
   margin: 9px 0 20px;
-
   color: #58705d;
-
   line-height: 1.55;
-
 }
-
 .notice,
 .result {
-
   padding: 12px 14px;
-
   border-radius: 8px;
-
   background: #edf7eb;
-
   color: #0f6f06;
-
   font-size: 13px;
-
   line-height: 1.45;
-
   margin-bottom: 16px;
-
 }
-
 .notice.error {
-
   background: #fff0ee;
-
   color: #b42318;
-
 }
-
 .registration-card form {
-
   display: grid;
-
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
   gap: 16px;
-
 }
-
 .registration-card label {
-
   display: grid;
-
   gap: 7px;
-
   color: #58705d;
-
   font-size: 12px;
-
   font-weight: 700;
-
 }
-
 .registration-card label:nth-child(1),
 .registration-card label:nth-child(2),
 .registration-card label:nth-child(3),
 .registration-card fieldset,
 .registration-card button {
-
   grid-column: 1/-1;
-
 }
-
 .registration-card input,
 .registration-card textarea,
 .registration-card select {
-
   width: 100%;
-
   min-height: 42px;
-
   padding: 10px 12px;
-
   border: 1px solid #dfe8e0;
-
   border-radius: 8px;
-
   color: #17351d;
-
   background: #fff;
-
   font: inherit;
-
 }
-
 .registration-card textarea {
-
   min-height: 76px;
-
   resize: vertical;
-
 }
-
 .registration-card input:focus,
 .registration-card textarea:focus,
 .registration-card select:focus {
-
   outline: 2px solid rgba(19, 136, 8, 0.16);
-
   border-color: #138808;
-
 }
-
 .registration-card small {
-
   color: #7b8f80;
-
   font-size: 10px;
-
   font-weight: 400;
-
 }
-
 .registration-card fieldset {
-
   display: flex;
-
   flex-wrap: wrap;
-
   gap: 12px 20px;
-
   margin: 0;
-
   padding: 12px 14px;
-
   border: 1px solid #dfe8e0;
-
   border-radius: 8px;
-
 }
-
 .registration-card fieldset legend {
-
   padding: 0 5px;
-
   color: #58705d;
-
   font-size: 12px;
-
   font-weight: 700;
-
 }
-
 .registration-card .check {
-
   display: flex;
-
   align-items: center;
-
   gap: 7px;
-
 }
-
 .registration-card .check input {
-
   width: 16px;
-
   min-height: auto;
-
   margin: 0;
-
   padding: 0;
-
 }
-
 .registration-card button {
-
   min-height: 43px;
-
   border: 0;
-
   border-radius: 8px;
-
   background: #138808;
-
   color: #fff;
-
   font: inherit;
-
   font-weight: 800;
-
   cursor: pointer;
-
 }
-
 .registration-card button:disabled {
-
   opacity: 0.6;
-
   cursor: wait;
-
 }
-
 .result {
-
   margin-top: 18px;
-
   white-space: pre-wrap;
-
   overflow-wrap: anywhere;
-
 }
-
 .result pre {
-
   margin: 0;
-
 }
-
 @media (max-width: 620px) {
-
   .registration-card {
-
     padding: 23px 18px;
-
   }
-
   .registration-card form {
-
     grid-template-columns: 1fr;
-
   }
-
   .registration-card label,
   .registration-card label:nth-child(1),
   .registration-card label:nth-child(2),
   .registration-card label:nth-child(3),
   .registration-card button {
-
     grid-column: auto;
-
   }
-
   .registration-card fieldset {
-
     grid-template-columns: 1fr;
-
   }
-
 }
 
 @media (max-width: 760px) {
-
   .registration-shell {
-
     padding: 24px 12px;
-
   }
-
   .registration-card {
-
     padding: 22px 16px;
-
   }
-
 }
-
 @media (max-width: 480px) {
-
   .registration-card {
-
     border-radius: 12px;
-
   }
-
   .registration-brand {
-
     margin-bottom: 22px;
-
   }
-
   h1 {
-
     font-size: 25px;
-
   }
-
   .registration-card fieldset {
-
     gap: 10px;
-
   }
-
   .registration-card button {
-
     width: 100%;
-
   }
-
 }

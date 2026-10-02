@@ -1,496 +1,251 @@
 :host {
-
   display: block;
-
 }
-
 .management-intro {
-
   min-height: 112px;
-
   margin-bottom: 20px;
-
   padding: 22px 24px;
-
   border: 1px solid var(--border);
-
   border-radius: var(--radius);
-
   background:
-  linear-gradient(105deg, rgba(19, 136, 8, 0.07), rgba(255, 153, 51, 0.045)), var(--surface);
-
+    linear-gradient(105deg, rgba(19, 136, 8, 0.07), rgba(255, 153, 51, 0.045)), var(--surface);
   box-shadow: var(--shadow);
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   gap: 20px;
-
 }
-
 .profile-heading {
-
   display: flex;
-
   align-items: center;
-
   gap: 16px;
-
 }
-
 .profile-avatar,
 .profile-avatar-fallback {
-
   width: 76px;
-
   height: 76px;
-
   border-radius: 50%;
-
   object-fit: cover;
-
   border: 2px solid var(--border);
-
   flex: none;
-
 }
-
 .profile-avatar-fallback {
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   background: var(--primary-soft);
-
   color: var(--green);
-
   font-size: 22px;
-
   font-weight: 800;
-
 }
-
 .profile-federation {
-
   margin: 5px 0 0 !important;
-
   color: var(--light) !important;
-
   font-size: 13px !important;
-
 }
-
 .management-intro h2 {
-
   margin: 0;
-
   color: var(--text);
-
   font-size: 24px;
-
   letter-spacing: -0.4px;
-
 }
-
 .management-intro p:not(.eyebrow) {
-
   margin: 7px 0 0;
-
   color: var(--muted);
-
 }
-
 .eyebrow {
-
   margin: 0 0 6px;
-
   color: var(--green);
-
   font-size: 10px;
-
   font-weight: 800;
-
   letter-spacing: 0.9px;
-
   text-transform: uppercase;
-
 }
-
 .button {
-
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
   min-height: 39px;
-
   padding: 0 16px;
-
   border-radius: 8px;
-
   font-size: 12px;
-
   font-weight: 650;
-
   text-decoration: none;
-
   border: 1px solid transparent;
-
   cursor: pointer;
-
 }
-
 .button.secondary {
-
   border-color: var(--border);
-
   background: var(--surface);
-
   color: var(--muted);
-
 }
-
 .button.primary {
-
   border-color: var(--green);
-
   background: var(--green);
-
   color: #fff;
-
 }
-
 .button:disabled {
-
   opacity: 0.58;
-
   cursor: not-allowed;
-
 }
-
 .panel {
-
   max-width: 820px;
-
   background: #fff;
-
   border: 1px solid var(--border);
-
   border-radius: var(--radius);
-
   box-shadow: var(--shadow);
-
 }
-
 .panel + .panel {
-
   margin-top: 20px;
-
 }
-
 .panel-header {
-
   min-height: 72px;
-
   padding: 17px 20px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   border-bottom: 1px solid var(--border);
-
   background: linear-gradient(100deg, rgba(19, 136, 8, 0.035), rgba(255, 255, 255, 0) 68%);
-
 }
-
 .panel-header h3 {
-
   margin: 0;
-
   color: var(--text);
-
   font-size: 15px;
-
 }
-
 .profile-list {
-
   margin: 0;
-
   padding: 24px 22px 26px;
-
   display: grid;
-
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
   gap: 18px;
-
 }
-
 .profile-list div {
-
   padding: 15px;
-
   border: 1px solid var(--border);
-
   border-radius: 9px;
-
   background: #fbfdfb;
-
 }
-
 dt {
-
   color: var(--light);
-
   font-size: 10px;
-
   font-weight: 800;
-
   letter-spacing: 0.7px;
-
   text-transform: uppercase;
-
 }
-
 dd {
-
   margin: 7px 0 0;
-
   color: var(--text);
-
   font-size: 14px;
-
   font-weight: 700;
-
   overflow-wrap: anywhere;
-
 }
-
 .password-form {
-
   padding: 22px;
-
 }
-
 .password-help {
-
   margin: 0 0 18px;
-
   color: var(--muted);
-
   font-size: 13px;
-
 }
-
 .form-field {
-
   display: flex;
-
   flex-direction: column;
-
   gap: 7px;
-
   margin-bottom: 16px;
-
 }
-
 .form-field label {
-
   color: var(--text);
-
   font-size: 12px;
-
   font-weight: 700;
-
 }
-
 .form-field input {
-
   width: 100%;
-
   min-height: 42px;
-
   padding: 0 12px;
-
   border: 1px solid var(--border);
-
   border-radius: 8px;
-
   background: #fff;
-
   color: var(--text);
-
   font: inherit;
-
   font-size: 13px;
-
   outline: none;
-
   box-sizing: border-box;
-
 }
-
 .form-field input:focus {
-
   border-color: var(--green);
-
   box-shadow: 0 0 0 3px rgba(19, 136, 8, 0.08);
-
 }
-
 .field-error {
-
   color: var(--danger, #b42318);
-
   font-size: 11px;
-
 }
-
 .form-message {
-
   margin: 4px 0 16px;
-
   padding: 10px 12px;
-
   border-radius: 8px;
-
   font-size: 12px;
-
 }
-
 .form-message.error {
-
   border: 1px solid #f0c9c5;
-
   background: #fff7f6;
-
   color: #b42318;
-
 }
-
 .form-message.success {
-
   border: 1px solid #b8dfbd;
-
   background: #f4fbf5;
-
   color: #176b1a;
-
 }
-
 .form-actions {
-
   display: flex;
-
   justify-content: flex-end;
-
   gap: 8px;
-
   margin-top: 4px;
-
 }
-
 @media (max-width: 760px) {
-
   .management-intro {
-
     align-items: flex-start;
-
     flex-direction: column;
-
   }
-
   .profile-list {
-
     grid-template-columns: 1fr;
-
     padding: 18px 15px;
-
   }
-
   .password-form {
-
     padding: 18px 15px;
-
   }
-
   .form-actions {
-
     flex-direction: column-reverse;
-
   }
-
   .form-actions .button {
-
     width: 100%;
-
   }
-
 }
 
 @media (max-width: 760px) {
-
   .management-intro {
-
     padding: 18px 16px;
-
     gap: 14px;
-
   }
-
   .profile-heading {
-
     min-width: 0;
-
   }
-
   .profile-heading > div {
-
     min-width: 0;
-
   }
-
   .management-intro h2 {
-
     font-size: 21px;
-
   }
-
   .profile-list {
-
     grid-template-columns: 1fr !important;
-
   }
-
 }
-
 @media (max-width: 480px) {
-
   .profile-avatar,
   .profile-avatar-fallback {
-
     width: 60px;
-
     height: 60px;
-
   }
-
   .profile-heading {
-
     gap: 12px;
-
   }
-
 }
