@@ -1,0 +1,21 @@
+<div
+  class="loading-overlay"
+  [class.loading-overlay--visible]="loading.loading()"
+  [attr.aria-hidden]="!loading.loading()"
+  aria-live="polite"
+  aria-busy="true"
+>
+  <div class="loading-indicator" role="status" aria-label="Loading">
+    <div class="loading-logo-wrap" aria-hidden="true">
+      <span class="loading-ring"></span>
+      <span class="loading-ring-highlight"></span>
+      <img
+        class="loading-logo"
+        src="/assets/tscloak-icon.png"
+        alt=""
+      />
+    </div>
+
+    <span class="loading-text">Loading...</span>
+  </div>
+</div>
