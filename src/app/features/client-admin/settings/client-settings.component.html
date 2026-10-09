@@ -101,17 +101,51 @@
     </div>
 
     <div class="capabilities-grid">
-      <label>
-        Allowed scopes
-        <input name="allowedScopes" [(ngModel)]="form.allowedScopes" />
-        <small>Separate values with spaces.</small>
-      </label>
-      <label>
-        Grant types
-        <input name="grantTypes" [(ngModel)]="form.grantTypes" />
-        <small>Separate values with spaces.</small>
-      </label>
-      <label>
+      <fieldset class="selection-fieldset">
+        <legend>Allowed scopes</legend>
+        <div class="selection-options">
+          @for (scope of standardScopes; track scope.value) {
+            <label>
+              <input
+                type="checkbox"
+                [checked]="form.allowedScopeOptions.includes(scope.value)"
+                (change)="toggleOption('allowedScopeOptions', scope.value)"
+              />
+              <span>{{ scope.label }}</span>
+            </label>
+          }
+        </div>
+        <input
+          name="additionalScopes"
+          [(ngModel)]="form.additionalScopes"
+          placeholder="Additional scopes (space separated)"
+        />
+        <small>Select standard scopes or enter custom scopes.</small>
+      </fieldset>
+
+      <fieldset class="selection-fieldset">
+        <legend>Grant types</legend>
+        <div class="selection-options">
+          @for (grant of standardGrantTypes; track grant.value) {
+            <label>
+              <input
+                type="checkbox"
+                [checked]="form.grantTypeOptions.includes(grant.value)"
+                (change)="toggleOption('grantTypeOptions', grant.value)"
+              />
+              <span>{{ grant.label }}</span>
+            </label>
+          }
+        </div>
+        <input
+          name="additionalGrantTypes"
+          [(ngModel)]="form.additionalGrantTypes"
+          placeholder="Additional grant types (space separated)"
+        />
+        <small>Select supported grant types or enter custom grant types.</small>
+      </fieldset>
+
+      <label class="response-types-field">
         Response types
         <input name="responseTypes" [(ngModel)]="form.responseTypes" />
         <small>Separate values with spaces.</small>

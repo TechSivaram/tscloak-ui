@@ -100,15 +100,41 @@
         <small>Enter one URI per line.</small>
       </label>
 
-      <label>
-        Allowed scopes
-        <input formControlName="allowedScopes" value="openid profile email" />
-      </label>
+      <fieldset class="selection-fieldset">
+        <legend>Allowed scopes</legend>
+        <div class="selection-options">
+          @for (scope of standardScopes; track scope.value) {
+            <label>
+              <input
+                type="checkbox"
+                [checked]="isOptionSelected('allowedScopeOptions', scope.value)"
+                (change)="toggleOption('allowedScopeOptions', scope.value)"
+              />
+              <span>{{ scope.label }}</span>
+            </label>
+          }
+        </div>
+        <input formControlName="additionalScopes" placeholder="Additional scopes (space separated)" />
+        <small>Select standard scopes or enter custom scopes.</small>
+      </fieldset>
 
-      <label>
-        Grant types
-        <input formControlName="grantTypes" value="authorization_code refresh_token" />
-      </label>
+      <fieldset class="selection-fieldset">
+        <legend>Grant types</legend>
+        <div class="selection-options">
+          @for (grant of standardGrantTypes; track grant.value) {
+            <label>
+              <input
+                type="checkbox"
+                [checked]="isOptionSelected('grantTypeOptions', grant.value)"
+                (change)="toggleOption('grantTypeOptions', grant.value)"
+              />
+              <span>{{ grant.label }}</span>
+            </label>
+          }
+        </div>
+        <input formControlName="additionalGrantTypes" placeholder="Additional grant types (space separated)" />
+        <small>Select supported grant types or enter custom grant types.</small>
+      </fieldset>
 
       <label>
         Response types

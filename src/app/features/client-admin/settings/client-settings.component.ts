@@ -12,7 +12,27 @@ export class ClientSettingsComponent {
   private readonly api = inject(PortalApiService);
   readonly settings = signal<any>(null);
   readonly message = signal('');
-  form: any = {};
+  readonly standardScopes = [
+    { value: 'openid', label: 'OpenID' },
+    { value: 'profile', label: 'Profile' },
+    { value: 'email', label: 'Email' },
+    { value: 'offline_access', label: 'Offline access' },
+    { value: 'roles', label: 'Roles' },
+    { value: 'scim', label: 'SCIM provisioning' },
+  ];
+  readonly standardGrantTypes = [
+    { value: 'authorization_code', label: 'Authorization Code' },
+    { value: 'refresh_token', label: 'Refresh Token' },
+    { value: 'client_credentials', label: 'Client Credentials' },
+  ];
+  private readonly standardScopeValues = new Set(this.standardScopes.map((item) => item.value));
+  private readonly standardGrantTypeValues = new Set(this.standardGrantTypes.map((item) => item.value));
+  form: any = {
+    allowedScopeOptions: [],
+    additionalScopes: '',
+    grantTypeOptions: [],
+    additionalGrantTypes: '',
+  };
   constructor() {
     void this.load();
   }
@@ -28,8 +48,10 @@ export class ClientSettingsComponent {
       name: c.name,
       redirectUris: (c.redirectUris || []).join('\n'),
       postLogoutRedirectUris: (c.postLogoutRedirectUris || []).join('\n'),
-      allowedScopes: (c.allowedScopes || []).join(' '),
-      grantTypes: (c.grantTypes || []).join(' '),
+      allowedScopeOptions: (c.allowedScopes || []).filter((value: string) => this.standardScopeValues.has(value)),
+      additionalScopes: (c.allowedScopes || []).filter((value: string) => !this.standardScopeValues.has(value)).join(' '),
+      grantTypeOptions: (c.grantTypes || []).filter((value: string) => this.standardGrantTypeValues.has(value)),
+      additionalGrantTypes: (c.grantTypes || []).filter((value: string) => !this.standardGrantTypeValues.has(value)).join(' '),
       responseTypes: (c.responseTypes || []).join(' '),
       jwksUri: c.jwksUri || '',
       tokenEndpointAuthMethods: c.tokenEndpointAuthMethods || ['none'],
@@ -48,6 +70,12 @@ export class ClientSettingsComponent {
     const a = this.form.tokenEndpointAuthMethods as string[];
     this.form.tokenEndpointAuthMethods = a.includes(v) ? a.filter((x) => x !== v) : [...a, v];
   }
+  toggleOption(group: 'allowedScopeOptions' | 'grantTypeOptions', value: string) {
+    const selected: string[] = this.form[group] || [];
+    this.form[group] = selected.includes(value)
+      ? selected.filter((item) => item !== value)
+      : [...selected, value];
+  }
   async save() {
     const r = await this.api.request('/api/client-admin/settings', {
       method: 'PUT',
@@ -55,8 +83,14 @@ export class ClientSettingsComponent {
         name: this.form.name,
         redirectUris: this.list(this.form.redirectUris),
         postLogoutRedirectUris: this.list(this.form.postLogoutRedirectUris),
-        allowedScopes: this.list(this.form.allowedScopes),
-        grantTypes: this.list(this.form.grantTypes),
+        allowedScopes: [...new Set([
+          ...(this.form.allowedScopeOptions || []),
+          ...this.list(this.form.additionalScopes),
+        ])],
+        grantTypes: [...new Set([
+          ...(this.form.grantTypeOptions || []),
+          ...this.list(this.form.additionalGrantTypes),
+        ])],
         responseTypes: this.list(this.form.responseTypes),
         tokenEndpointAuthMethods: this.form.tokenEndpointAuthMethods,
         jwksUri: this.form.jwksUri || undefined,

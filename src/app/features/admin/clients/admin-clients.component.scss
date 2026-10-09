@@ -442,3 +442,67 @@ td code {
   .table-wrap tbody td:last-child { display: flex; }
   .table-wrap tbody td:last-child::before { width: 100%; margin-right: 0; }
 }
+
+
+/* Standard scope and grant-type checkboxes with support for custom values. */
+.admin-form .selection-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 10px 12px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.admin-form .selection-fieldset legend {
+  padding: 0 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-form .selection-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin-bottom: 12px;
+}
+
+.admin-form .selection-options label {
+  display: inline-flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admin-form .selection-options input[type="checkbox"] {
+  width: 14px;
+  min-width: 14px;
+  min-height: 14px;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--green);
+}
+
+.admin-form .selection-fieldset > input {
+  width: 100%;
+}
+
+.admin-form .selection-fieldset > small {
+  display: block;
+  margin-top: 6px;
+  color: var(--light);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+@media (max-width: 760px) {
+  .admin-form .selection-fieldset {
+    grid-column: 1;
+  }
+}

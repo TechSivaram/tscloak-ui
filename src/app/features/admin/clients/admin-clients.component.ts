@@ -68,14 +68,32 @@ export class AdminClientsComponent implements OnInit {
     jwksUri: [''],
     redirectUris: ['', Validators.required],
     postLogoutRedirectUris: [''],
-    allowedScopes: ['openid profile email', Validators.required],
-    grantTypes: ['authorization_code refresh_token', Validators.required],
+    allowedScopeOptions: this.fb.nonNullable.control<string[]>(['openid', 'profile', 'email']),
+    additionalScopes: [''],
+    grantTypeOptions: this.fb.nonNullable.control<string[]>(['authorization_code', 'refresh_token']),
+    additionalGrantTypes: [''],
     responseTypes: ['code', Validators.required],
     interactionMode: this.fb.nonNullable.control<'hosted' | 'external'>('hosted'),
     interactionLoginUrl: [''],
     interactionConsentUrl: [''],
     enabled: this.fb.nonNullable.control('true'),
   });
+
+  readonly standardScopes = [
+    { value: 'openid', label: 'OpenID' },
+    { value: 'profile', label: 'Profile' },
+    { value: 'email', label: 'Email' },
+    { value: 'offline_access', label: 'Offline access' },
+    { value: 'roles', label: 'Roles' },
+    { value: 'scim', label: 'SCIM provisioning' },
+  ];
+  readonly standardGrantTypes = [
+    { value: 'authorization_code', label: 'Authorization Code' },
+    { value: 'refresh_token', label: 'Refresh Token' },
+    { value: 'client_credentials', label: 'Client Credentials' },
+  ];
+  private readonly standardScopeValues = new Set(this.standardScopes.map((item) => item.value));
+  private readonly standardGrantTypeValues = new Set(this.standardGrantTypes.map((item) => item.value));
 
   readonly authMethods = [
     { value: 'none', label: 'None (public client)' },
@@ -134,8 +152,10 @@ export class AdminClientsComponent implements OnInit {
       jwksUri: client.jwksUri ?? '',
       redirectUris: (client.redirectUris ?? []).join('\n'),
       postLogoutRedirectUris: (client.postLogoutRedirectUris ?? []).join('\n'),
-      allowedScopes: (client.allowedScopes ?? []).join(' '),
-      grantTypes: (client.grantTypes ?? []).join(' '),
+      allowedScopeOptions: (client.allowedScopes ?? []).filter((value) => this.standardScopeValues.has(value)),
+      additionalScopes: (client.allowedScopes ?? []).filter((value) => !this.standardScopeValues.has(value)).join(' '),
+      grantTypeOptions: (client.grantTypes ?? []).filter((value) => this.standardGrantTypeValues.has(value)),
+      additionalGrantTypes: (client.grantTypes ?? []).filter((value) => !this.standardGrantTypeValues.has(value)).join(' '),
       responseTypes: (client.responseTypes ?? []).join(' '),
       interactionMode: client.interactionMode ?? 'hosted',
       interactionLoginUrl: client.interactionLoginUrl ?? '',
@@ -198,8 +218,14 @@ export class AdminClientsComponent implements OnInit {
       name: raw.name.trim(),
       redirectUris: this.toList(raw.redirectUris),
       postLogoutRedirectUris: this.toList(raw.postLogoutRedirectUris),
-      allowedScopes: this.toWords(raw.allowedScopes),
-      grantTypes: this.toWords(raw.grantTypes),
+      allowedScopes: [...new Set([
+        ...raw.allowedScopeOptions,
+        ...this.toWords(raw.additionalScopes),
+      ])],
+      grantTypes: [...new Set([
+        ...raw.grantTypeOptions,
+        ...this.toWords(raw.additionalGrantTypes),
+      ])],
       responseTypes: this.toWords(raw.responseTypes),
       tokenEndpointAuthMethods: [...raw.tokenEndpointAuthMethods],
       jwksUri: raw.jwksUri.trim() || undefined,
@@ -257,6 +283,20 @@ export class AdminClientsComponent implements OnInit {
     this.form.controls.tokenEndpointAuthMethods.setValue(next);
   }
 
+  isOptionSelected(group: 'allowedScopeOptions' | 'grantTypeOptions', value: string): boolean {
+    return this.form.controls[group].value.includes(value);
+  }
+
+  toggleOption(group: 'allowedScopeOptions' | 'grantTypeOptions', value: string): void {
+    const control = this.form.controls[group];
+    const current: string[] = control.value;
+    control.setValue(current.includes(value)
+      ? current.filter((item) => item !== value)
+      : [...current, value]);
+    control.markAsDirty();
+    control.markAsTouched();
+  }
+
   showExternalInteractionFields(): boolean {
     return this.form.controls.interactionMode.value === 'external';
   }
@@ -282,8 +322,10 @@ export class AdminClientsComponent implements OnInit {
       jwksUri: '',
       redirectUris: '',
       postLogoutRedirectUris: '',
-      allowedScopes: 'openid profile email',
-      grantTypes: 'authorization_code refresh_token',
+      allowedScopeOptions: ['openid', 'profile', 'email'],
+      additionalScopes: '',
+      grantTypeOptions: ['authorization_code', 'refresh_token'],
+      additionalGrantTypes: '',
       responseTypes: 'code',
       interactionMode: 'hosted',
       interactionLoginUrl: '',
